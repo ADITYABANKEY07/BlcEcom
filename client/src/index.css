@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+.swiper-pagination-bullet {
+  border: 1px solid white;
+}
+.swiper-pagination-bullet-active {
+  background: white;
+}
+
+/* Hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
