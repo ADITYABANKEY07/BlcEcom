@@ -1,82 +1,79 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import axios from "axios";
+import { FaHeart, FaChevronLeft, FaChevronRight, FaShoppingCart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../cartSlice";
 
-import { FaHeart, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
-// images
-import cover1 from "../images/cover1.png";
-import cover2 from "../images/cover2.png";
-import cover3 from "../images/cover3.png";
-import cover4 from "../images/cover4.png";
-import cover5 from "../images/cover5.png";
-
-const products = [
-  {
-    id: 1,
-    name: "GLAS.tR EZ Fit Pro",
-    desc: "Galaxy S24 Series Case",
-    price: "19.99",
-    img: cover1,
-  },
-  {
-    id: 2,
-    name: "Tough Armor (Mag Fit)",
-    desc: "iphone 16 Series Case",
-    price: "9.99",
-    img: cover2,
-  },
-  {
-    id: 3,
-    name: "Classic Rugged Case",
-    desc: "Galaxy S25 Series Case",
-    price: "12.99",
-    img: cover3,
-  },
-  {
-    id: 4,
-    name: "GLAS.tR EZ Fit | Sensor",
-    desc: "Galaxy S25 Series Case",
-    price: "20.99",
-    img: cover4,
-  },
-  {
-    id: 5,
-    name: "Premium Clear Case",
-    desc: "iPhone 16e Series Case",
-    price: "10.99",
-    img: cover5,
-  },
-];
 
 const BestSeller = () => {
   const swiperRef = useRef(null);
+  const navigate = useNavigate();
+
+  const [products, setProducts] = useState([]);
+  const [likedItems, setLikedItems] = useState([]);
+
+  // ✅ Fetch BestSeller products from backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        let api = `${import.meta.env.VITE_API_URL}/product/bestseller?isBestSeller=true`;
+        let res = await axios.get(api);
+        setProducts(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const toggleLike = (e, productId) => {
+    e.stopPropagation();
+
+    setLikedItems((prev) =>
+      prev.includes(productId)
+        ? prev.filter((id) => id !== productId)
+        : [...prev, productId],
+    );
+  };
+
+  const handleOpenProduct = (id) => {
+    navigate(`/product/${id}`);
+  };
+
+  const dispatch = useDispatch()
+
+  // ✅ Handle Add to Cart
+  const handleAddToCart = (e, product) => {
+    e.stopPropagation(); // Prevents navigating to the product page
+    console.log("Added to cart:", product);
+    dispatch(addToCart(product));
+  };
+
+
 
   return (
     <div className="bg-gray-50 py-16 px-6 md:px-12 relative">
+      <h2 className="text-3xl md:text-4xl font-semibold mb-10">Bestsellers</h2>
 
-      {/* Heading */}
-      <h2 className="text-3xl md:text-4xl font-semibold mb-10">
-        Bestsellers
-      </h2>
-
-      {/* LEFT ARROW */}
+      {/* Navigation Buttons */}
       <button
         onClick={() => swiperRef.current.slidePrev()}
-        className="absolute right-16 bottom-6 z-10 w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300"
+        className="absolute right-16 bottom-6 z-10 w-10 h-10 cursor-pointer rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
       >
         <FaChevronLeft />
       </button>
 
-      {/* RIGHT ARROW */}
       <button
         onClick={() => swiperRef.current.slideNext()}
-        className="absolute right-4 bottom-6 z-10 w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300"
+        className="absolute right-4 bottom-6 z-10 w-10 h-10 cursor-pointer rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
       >
         <FaChevronRight />
       </button>
 
-      {/* SWIPER */}
       <Swiper
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         slidesPerView={2}
@@ -85,47 +82,74 @@ const BestSeller = () => {
         breakpoints={{
           640: { slidesPerView: 3 },
           1024: { slidesPerView: 4 },
-          1280: { slidesPerView: 4 },
         }}
       >
-        {products.map((item) => (
-          <SwiperSlide key={item.id}>
-            <div className="group cursor-pointer">
+        {products.map((item) => {
+          const isLiked = likedItems.includes(item._id);
 
-<div className="relative bg-[#f5f5f5] rounded-3xl h-[260px] flex items-center justify-center overflow-hidden">
+          return (
+            <SwiperSlide key={item._id}>
+              <div
+                onClick={() => handleOpenProduct(item._id)}
+                className="group cursor-pointer flex flex-col h-full"
+              >
+                <div className="relative bg-[#f5f5f5] rounded-3xl h-[260px] flex items-center justify-center overflow-hidden">
+                  {/* ✅ Real image */}
+                  <img
+                    src={item.defaultImage}
+                    alt={item.title}
+                    className="h-[85%] object-contain transition-transform duration-300 group-hover:scale-105"
+                  />
 
-  {/* Image */}
-  <img
-    src={item.img}
-    alt={item.name}
-    className="h-[85%] object-contain transition-transform duration-300 group-hover:scale-105"
-  />
+                  {/* Like Button */}
+                  <button
+                    onClick={(e) => toggleLike(e, item._id)}
+                    className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md ${
+                      isLiked
+                        ? "opacity-100"
+                        : "opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    }`}
+                  >
+                    <FaHeart
+                      className={`${
+                        isLiked ? "text-red-500" : "text-gray-400"
+                      }`}
+                    />
+                  </button>
+                </div>
 
-  {/* Wishlist */}
-  <button className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110">
-    <FaHeart className="text-gray-400 text-sm hover:text-red-500" />
-  </button>
+                <div className="mt-4 flex flex-col flex-grow">
+                  <h3 className="text-sm font-semibold">{item.title}</h3>
 
-</div>
+                  <p className="text-xs text-gray-500 mb-2">
+                    {item.brand} {item.model}
+                  </p>
 
-              {/* Info */}
-              <div className="mt-4">
-                <h3 className="text-sm font-semibold text-gray-900">
-                  {item.name}
-                </h3>
+                  {/* Pricing and Add to Cart Section */}
+                  <div className="flex justify-between items-center mt-auto">
+                    <div className="flex gap-2 items-center flex-wrap">
+                      <p className="font-medium text-black">
+                        ₹{item.discountPrice}
+                      </p>
+                      <p className="text-gray-400 line-through text-xs sm:text-sm">
+                        ₹{item.price}
+                      </p>
+                    </div>
 
-                <p className="text-xs text-gray-500 mt-1">
-                  {item.desc}
-                </p>
-
-<p className="text-sm font-medium mt-2">
-  ₹{(item.price * 83).toFixed(0)}
-</p>
+                    {/* ✅ Add to Cart Button */}
+                    <button
+                      onClick={(e) => handleAddToCart(e, item)}
+                      className="bg-gray-900 text-white hover:text-orange-500 cursor-pointer px-3 py-2 rounded-xl text-xs sm:text-sm font-medium flex items-center gap-2 hover:bg-gray-700 transition-colors shadow-sm"
+                    >
+                      <FaShoppingCart />
+                      <span className="hidden sm:inline">Add</span>
+                    </button>
+                  </div>
+                </div>
               </div>
-
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );

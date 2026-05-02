@@ -88,7 +88,6 @@ const Footer = () => {
               © 2026 BaseLayerCase. All Rights Reserved.
             </p>
           </div>
-
         </div>
       </div>
     </footer>
