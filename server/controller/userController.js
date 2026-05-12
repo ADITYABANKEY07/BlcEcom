@@ -1,0 +1,54 @@
+const userModel = require("../models/userModel");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const signupUser = async (req, res) => {
+  const { fullName, email, pass } = req.body;
+  const salt = await bcrypt.genSalt(10);
+  const newPass = await bcrypt.hash(pass, salt);
+  const user = await userModel.create({
+    fullName: fullName,
+    email: email,
+    pass: newPass,
+  });
+  res.status(200).send({ msg: "User signup successfully 🎉", status: 200 });
+};
+
+const loginUser = async (req, res) => {
+  try {
+    let { email, pass } = req.body;
+    const user = await userModel.findOne({ email: email });
+    if (!user) {
+      return res.status(400).send({ msg: "Invalid email", status: 400 });
+    }
+    const isMatch = await bcrypt.compare(pass, user.pass);
+    if (!isMatch) {
+      return res.status(400).send({ msg: "Invalid password", status: 400 });
+    }
+
+    const token = await jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "30 days",
+    });
+
+    res
+      .status(200)
+      .send({
+        user: user,
+        token: token,
+        msg: "User login successfully 🎉",
+        status: 200,
+      });
+  } catch (error) {
+    res.status(500).send({ msg: "Server error", status: 500 });
+  }
+};
+
+const userAuth = async(req, res) => {
+  console.log(req.body);
+    res.status(200).send({ msg: "Okk", status: 200 });
+}
+
+module.exports = {
+  signupUser,
+  loginUser,
+};

@@ -3,6 +3,8 @@ import { Search, User, ShoppingBag, Menu } from "lucide-react";
 import logo from "../images/blc.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import UserDropDown from "./UserDropDown";
 
 const Header = () => {
   const [showHeader, setShowHeader] = useState(true);
@@ -10,6 +12,23 @@ const Header = () => {
   const [openSearch, setOpenSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+
+  const [menuData, setMenuData] = useState({});
+
+  useEffect(() => {
+    const fetchMenu = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/product/menu`,
+        );
+        setMenuData(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchMenu();
+  }, []);
 
   const handleSearchToggle = () => {
     setOpenSearch((prev) => !prev);
@@ -98,41 +117,44 @@ const Header = () => {
                   </svg>
                 </Link>
 
-                {/* Vertical Dropdown Menu */}
-                <div className="absolute left-0 top-full mt-2 w-56 bg-white shadow-xl py-4 flex flex-col opacity-0 invisible translate-y-5 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 border-t-4 border-orange-500 z-50">
-                  <Link
-                    to="/iphone"
-                    className="px-6 py-2 hover:bg-orange-50 hover:text-orange-500 transition-colors lowercase first-letter:uppercase"
+                {/* 🔥 LEVEL 2 (BRANDS) */}
+                <div className="absolute left-0 top-full pt-2 w-56 z-[999]">
+                  <div
+                    className="bg-white shadow-xl py-4 border-t-4 border-orange-500
+        opacity-0 invisible translate-y-2 
+        group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 
+        transition-all duration-300"
                   >
-                    iPhone
-                  </Link>
-                  <Link
-                    to="/samsung"
-                    className="px-6 py-2 hover:bg-orange-50 hover:text-orange-500 transition-colors lowercase first-letter:uppercase"
-                  >
-                    Samsung
-                  </Link>
-                  <Link
-                    to="/pixel"
-                    className="px-6 py-2 hover:bg-orange-50 hover:text-orange-500 transition-colors lowercase first-letter:uppercase"
-                  >
-                    Pixel
-                  </Link>
-                  <Link
-                    to="/ipad"
-                    className="px-6 py-2 hover:bg-orange-50 hover:text-orange-500 transition-colors lowercase first-letter:uppercase"
-                  >
-                    iPad
-                  </Link>
+                    {Object.keys(menuData).map((brand) => (
+                      <div key={brand} className="relative group/sub">
+                        {/* 🔹 BRAND */}
+                        <div className="px-6 py-2 flex justify-between items-center hover:bg-orange-50 cursor-pointer capitalize">
+                          {brand}
+                          <span>›</span>
+                        </div>
 
-                  {/* You can add more links here as needed */}
-                  <div className="border-t my-2 mx-6"></div>
-                  <Link
-                    to="/accessories"
-                    className="px-6 py-2 hover:bg-orange-50 hover:text-orange-500 transition-colors lowercase first-letter:uppercase"
-                  >
-                    Accessories
-                  </Link>
+                        {/* 🔥 LEVEL 3 (MODELS) */}
+                        <div className="absolute left-full top-0 pt-2 w-56 z-[999]">
+                          <div
+                            className="bg-white shadow-xl py-3 
+                opacity-0 invisible translate-x-2 
+                group-hover/sub:opacity-100 group-hover/sub:visible group-hover/sub:translate-x-0 
+                transition-all duration-300"
+                          >
+                            {menuData[brand].map((model, i) => (
+                              <Link
+                                key={i}
+                                to={`/collection/${brand}/${encodeURIComponent(model)}`}
+                                className="block px-5 py-2 text-sm hover:bg-orange-50 hover:text-orange-500 capitalize"
+                              >
+                                {model}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </li>
 
@@ -161,7 +183,7 @@ const Header = () => {
               </div>
             )}
 
-            {/* <User className="cursor-pointer hover:text-orange-500 transition" /> */}
+            <UserDropDown/>
 
             {/* Cart */}
             <Link

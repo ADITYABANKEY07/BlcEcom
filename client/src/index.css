@@ -19,3 +19,15 @@
 .input {
   @apply w-full border border-gray-300 rounded-lg px-4 py-2 text-sm outline-none focus:border-black focus:ring-1 focus:ring-black transition;
 }
+
+.inputDark {
+  @apply w-full px-4 py-2 rounded-lg 
+  bg-[#1F2937] 
+  border border-[#2D3748]   /* 👈 visible dark border */
+  text-gray-200 placeholder-gray-400 
+  outline-none transition duration-200
+
+  hover:border-gray-600     /* 👈 hover effect */
+  focus:border-indigo-500   /* 👈 active highlight */
+  focus:ring-1 focus:ring-indigo-500;
+}

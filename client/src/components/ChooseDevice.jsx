@@ -14,23 +14,21 @@ import pixel from "../images/pixel9a.png";
 import ipad from "../images/ipad.png";
 
 const devices = [
-  // 2. Ensure each item has a unique ID and a URL-friendly 'slug'
-  { id: "s24-ultra", name: "Galaxy S24 Series", img: samsung24, brand: "samsung" },
-  { id: "s25-ultra", name: "Galaxy S25 Series", img: samsung25, brand: "samsung" },
-  { id: "iphone-15", name: "iPhone 15 Series", img: iphone15, brand: "apple" },
-  { id: "iphone-16", name: "iPhone 16 Series", img: iphone16, brand: "apple" },
-  { id: "pixel-9a", name: "Pixel 9 Series", img: pixel, brand: "google" },
-  { id: "ipad-series", name: "iPad Series", img: ipad, brand: "apple" },
+  { id: "Galaxy S24", model: "Galaxy S24", img: samsung24, brand: "Samsung" },
+  { id: "Galaxy S25", model: "Galaxy S25", img: samsung25, brand: "Samsung" },
+  { id: "iPhone 16", model: "iPhone 16", img: iphone16, brand: "Apple" },
+  { id: "iPhone 15", model: "iPhone 15", img: iphone15, brand: "Apple" },
+  { id: "Pixel 9", model: "Pixel 9a", img: pixel, brand: "Google" },
+  { id: "iPad", model: "iPad", img: ipad, brand: "Apple" },
 ];
 
 const ChooseDevice = () => {
   const swiperRef = useRef(null);
   const navigate = useNavigate(); // 3. Initialize navigate
 
-  const handleDeviceClick = (device) => {
-    // 4. Navigate to a dynamic route, e.g., /repair/samsung/s24-ultra
-    navigate(`/device/${device.brand}/${device.id}`);
-  };
+const handleDeviceClick = (device) => {
+  navigate(`/device/${device.brand}/${device.model}`);
+};
 
   return (
     <div className="relative bg-white py-16">
@@ -73,12 +71,12 @@ const ChooseDevice = () => {
               <div className="h-[300px] flex items-center justify-center">
                 <img
                   src={item.img}
-                  alt={item.name}
+                  alt={item.model}
                   className="h-full object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
               <p className="mt-4 font-medium text-gray-700 group-hover:text-blue-600">
-                {item.name}
+                {item.model}
               </p>
             </div>
           </SwiperSlide>

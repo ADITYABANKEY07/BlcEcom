@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-const SelectedDevices = () => {
+const Collections = () => {
   const { brand, model } = useParams();
   let navigate = useNavigate();
   const decodedBrand = decodeURIComponent(brand);
@@ -194,4 +194,4 @@ const SelectedDevices = () => {
   );
 };
 
-export default SelectedDevices;
+export default Collections;

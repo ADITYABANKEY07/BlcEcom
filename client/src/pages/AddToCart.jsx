@@ -1,10 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { qntInc, qntDec, removeCart } from "../cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const AddToCart = () => {
   const cartData = useSelector((state) => state.mycart.cart);
   const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const subtotal = cartData.reduce(
     (acc, item) => acc + item.price * item.qty,
@@ -129,7 +131,7 @@ const AddToCart = () => {
                       <div className="flex items-center border border-gray-200 w-fit">
                         <button
                           onClick={() => dispatch(qntDec({ id: item._id }))}
-                          className="w-8 h-8 bg-gray-100 text-gray-600 text-lg flex items-center justify-center hover:bg-orange-500 hover:text-white transition-colors duration-150"
+                          className="w-8 h-8 bg-gray-100 text-gray-600 cursor-pointer text-lg flex items-center justify-center hover:bg-orange-500 hover:text-white transition-colors duration-150"
                         >
                           −
                         </button>
@@ -138,7 +140,7 @@ const AddToCart = () => {
                         </span>
                         <button
                           onClick={() => dispatch(qntInc({ id: item._id }))}
-                          className="w-8 h-8 bg-gray-100 text-gray-600 text-lg flex items-center justify-center hover:bg-orange-500 hover:text-white transition-colors duration-150"
+                          className="w-8 h-8 bg-gray-100 text-gray-600 cursor-pointer text-lg flex items-center justify-center hover:bg-orange-500 hover:text-white transition-colors duration-150"
                         >
                           +
                         </button>
@@ -157,7 +159,7 @@ const AddToCart = () => {
                     <td className="px-4 py-3">
                       <button
                         onClick={() => dispatch(removeCart({ id: item._id }))}
-                        className="text-[10px] tracking-widest uppercase px-3 py-1 border border-gray-200 text-gray-400 hover:border-orange-500 hover:text-orange-500 transition-colors duration-150"
+                        className="text-[10px] cursor-pointer tracking-widest uppercase px-3 py-1 border border-gray-200 text-gray-400 hover:border-orange-500 hover:text-orange-500 transition-colors duration-150"
                       >
                         Remove
                       </button>
@@ -188,7 +190,22 @@ const AddToCart = () => {
                   })}
                 </span>{" "}
               </div>
-              <button className="w-full mt-4 px-2 py-3 cursor-pointer bg-orange-500 hover:bg-orange-600 active:scale-95 text-white text-lg font-black uppercase tracking-widest transition-all duration-150">
+              <button
+                onClick={() => {
+                  const token = localStorage.getItem("token");
+
+                  if (!token) {
+                    // ✅ SAVE WHERE USER WANTS TO GO
+                    localStorage.setItem("redirectAfterLogin", "/checkout");
+
+                    // ✅ GO LOGIN
+                    navigate("/login");
+                  } else {
+                    navigate("/checkout");
+                  }
+                }}
+                className="w-full mt-4 px-2 py-3 cursor-pointer bg-orange-500 hover:bg-orange-600 active:scale-95 text-white text-lg font-black uppercase tracking-widest transition-all duration-150"
+              >
                 Proceed to Checkout
               </button>
             </div>

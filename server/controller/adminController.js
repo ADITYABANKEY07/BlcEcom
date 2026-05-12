@@ -1,5 +1,6 @@
 const adminModel = require("../models/adminModel");
 const ProductModel = require("../models/productModel");
+const OrderModel = require("../models/orderModel");
 const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../cloudinary");
@@ -13,11 +14,11 @@ const LoginPage = async (req, res) => {
     if (!admin) {
       return res.status(400).send({ status: 400, msg: "Not admin" });
     }
-const isMatch = await bcrypt.compare(password, admin.password);
+    const isMatch = await bcrypt.compare(password, admin.password);
 
-if (!isMatch) {
-  return res.status(400).json({ msg: "Invalid password" });
-}
+    if (!isMatch) {
+      return res.status(400).json({ msg: "Invalid password" });
+    }
     const token = jwt.sign(
       { id: admin._id, email: admin.email },
       process.env.JWT_SECRET,
@@ -56,6 +57,102 @@ const GetAdminDataPage = async (req, res) => {
 const AdminLogoutPage = async (req, res) => {
   res.clearCookie("token");
   res.status(200).json({ msg: "Logout successful" });
+};
+
+const DisplayAllProduct = async (req, res) => {
+  let products = await ProductModel.find();
+  res.send(products);
+};
+const EditDisplay = async (req, res) => {
+  let { id } = req.query;
+  let products = await ProductModel.findById(id);
+  res.send(products);
+};
+
+const UpdateProduct = async (req, res) => {
+  let {
+    _id,
+    title,
+    brand,
+    model,
+    price,
+    discountPrice,
+    description,
+    category,
+    subCategory,
+    tags,
+    stock,
+    isBestSeller,
+    isFeatured,
+  } = req.body;
+  let products = await ProductModel.findByIdAndUpdate(_id, {
+    title: title,
+    brand: brand,
+    model: model,
+    price: price,
+    discountPrice: discountPrice,
+    description: description,
+    category: category,
+    subCategory: subCategory,
+    tags: tags,
+    stock: stock,
+    isBestSeller: isBestSeller,
+    isFeatured: isFeatured,
+  });
+  res.status(200).send({ msg: "Update Product successfully" });
+};
+
+const DeleteProduct = async (req, res) => {
+  let { id } = req.query;
+  let products = await ProductModel.findByIdAndDelete(id);
+  res.status(200).json({ msg: "Product deleted successfully" });
+};
+
+const saveOrder = async (req, res) => {
+  try {
+    const newOrder = new OrderModel(req.body);
+
+    await newOrder.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Order Saved",
+      order: newOrder, // ✅ IMPORTANT
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+const GetOrders = async (req, res) => {
+  try {
+    const orders = await OrderModel.find().sort({
+      createdAt: -1,
+    });
+
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+const OrderStatus = async (req, res) => {
+  try {
+    const orders = await OrderModel.find().sort({
+      createdAt: -1,
+    });
+
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
 };
 
 //********************************/ ✅ Cloudinary Storage********************************************
@@ -176,4 +273,11 @@ module.exports = {
   GetAdminDataPage,
   AdminLogoutPage,
   verifyAdmin,
+  DisplayAllProduct,
+  EditDisplay,
+  UpdateProduct,
+  DeleteProduct,
+  saveOrder,
+  GetOrders,
+  OrderStatus,
 };

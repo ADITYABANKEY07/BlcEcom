@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddProduct = () => {
   const navigate = useNavigate();
@@ -73,67 +74,111 @@ const AddProduct = () => {
       });
 
       console.log(response.data);
-      alert("Product uploaded successfully");
+      toast.success("Product uploaded successfully");
     } catch (error) {
       console.error(error);
-      alert("Upload failed");
+      toast.error("Upload failed");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex justify-center py-10 px-4">
+    <div className="min-h-screen bg-[#0B132B] flex justify-center py-10 px-4 text-gray-200">
+      <ToastContainer position="top-right" autoClose={2000} />
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-3xl bg-white p-8 rounded-2xl shadow-sm space-y-6"
+        className="w-full max-w-3xl bg-[#111827] p-8 rounded-2xl border border-gray-800 shadow-lg space-y-6"
       >
-        <h2 className="text-2xl font-semibold text-black">Add Product</h2>
+        <h2 className="text-2xl font-semibold text-white">Add Product</h2>
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <input name="title" placeholder="Product title" className="input" onChange={handleInput} />
-          <input name="brand" placeholder="Brand" className="input" onChange={handleInput} />
-          <input name="model" placeholder="Model (iPhone 16, S25)" className="input" onChange={handleInput} />
-          <input name="category" placeholder="Category" className="input" onChange={handleInput} />
-          <input name="subCategory" placeholder="Sub Category" className="input" onChange={handleInput} />
-          <input name="price" placeholder="Price" className="input" onChange={handleInput} />
-          <input name="discountPrice" placeholder="Discount Price" className="input" onChange={handleInput} />
-          <input name="stock" placeholder="Stock" className="input" onChange={handleInput} />
+          <input
+            name="title"
+            placeholder="Product title"
+            className="inputDark"
+            onChange={handleInput}
+          />
+          <input
+            name="brand"
+            placeholder="Brand"
+            className="inputDark"
+            onChange={handleInput}
+          />
+          <input
+            name="model"
+            placeholder="Model (iPhone 16, S25)"
+            className="inputDark"
+            onChange={handleInput}
+          />
+          <input
+            name="category"
+            placeholder="Category"
+            className="inputDark"
+            onChange={handleInput}
+          />
+          <input
+            name="subCategory"
+            placeholder="Sub Category"
+            className="inputDark"
+            onChange={handleInput}
+          />
+          <input
+            name="price"
+            placeholder="Price"
+            className="inputDark"
+            onChange={handleInput}
+          />
+          <input
+            name="discountPrice"
+            placeholder="Discount Price"
+            className="inputDark"
+            onChange={handleInput}
+          />
+          <input
+            name="stock"
+            placeholder="Stock"
+            className="inputDark"
+            onChange={handleInput}
+          />
         </div>
 
         <textarea
           name="description"
           placeholder="Product Description"
-          className="input h-24"
+          className="inputDark h-24"
           onChange={handleInput}
         />
 
         <input
           name="tags"
           placeholder="Tags (comma separated)"
-          className="input"
+          className="inputDark"
           onChange={handleInput}
         />
 
-        {/* ✅ FIXED FILE INPUT */}
+        {/* FILE INPUT */}
         <div>
-          <label className="text-sm text-gray-600">Upload Images</label>
+          <label className="text-sm text-gray-400">Upload Images</label>
           <input
             type="file"
             name="images"
             multiple
             onChange={handleImage}
-            className="mt-2"
+            className="mt-2 w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4 
+                   file:rounded-lg file:border-0 
+                   file:bg-indigo-500 file:text-white 
+                   hover:file:bg-indigo-600 transition"
           />
         </div>
 
         {/* Checkboxes */}
         <div className="flex gap-6 text-sm">
-          <label className="flex items-center gap-2">
+          <label className="flex items-center gap-2 text-gray-300">
             <input type="checkbox" name="isBestSeller" onChange={handleInput} />
             Best Seller
           </label>
 
-          <label className="flex items-center gap-2">
+          <label className="flex items-center gap-2 text-gray-300">
             <input type="checkbox" name="isFeatured" onChange={handleInput} />
             Featured
           </label>
@@ -141,7 +186,7 @@ const AddProduct = () => {
 
         <button
           type="submit"
-          className="w-full bg-black text-white py-3 rounded-full hover:bg-gray-800 transition"
+          className="w-full bg-indigo-500 text-white py-3 rounded-xl hover:bg-indigo-600 transition font-medium"
         >
           Add Product
         </button>
