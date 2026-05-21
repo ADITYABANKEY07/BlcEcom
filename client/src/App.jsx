@@ -23,6 +23,10 @@ import Success from "./pages/Success";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import LoginSuccess from "./components/LoginSuccess";
+import MyOrders from "./pages/MyOrders";
+import Customers from "./admin/Customers";
+import Analytics from "./admin/Analytics";
+import Settings from "./admin/Settings";
 
 const App = () => {
   return (
@@ -45,6 +49,7 @@ const App = () => {
           <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login />} />
           <Route path="login-success" element={<LoginSuccess />} />
+          <Route path="myorders" element={<MyOrders />} />
         </Route>
 
         {/* Admin Login (separate) */}
@@ -65,6 +70,9 @@ const App = () => {
           <Route path="allproduct" element={<AllProduct />} />
           <Route path="update/:id" element={<UpdateProduct />} />
           <Route path="adminorders" element={<AdminOrders />} />
+          <Route path="customers" element={<Customers />} />
+          <Route path="analytics" element={<Analytics />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
     </div>

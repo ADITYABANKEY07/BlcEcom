@@ -118,25 +118,25 @@ const NAV_ITEMS = [
       </svg>
     ),
   },
-  {
-    label: "Settings",
-    path: "/admin/settings",
-    icon: (
-      <svg
-        className="w-4 h-4"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 8a4 4 0 100 8 4 4 0 000-8zm8 4a8 8 0 11-16 0 8 8 0 0116 0z"
-        />
-      </svg>
-    ),
-  },
+  // {
+  //   label: "Settings",
+  //   path: "/apanel/settings",
+  //   icon: (
+  //     <svg
+  //       className="w-4 h-4"
+  //       fill="none"
+  //       viewBox="0 0 24 24"
+  //       stroke="currentColor"
+  //       strokeWidth={2}
+  //     >
+  //       <path
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //         d="M12 8a4 4 0 100 8 4 4 0 000-8zm8 4a8 8 0 11-16 0 8 8 0 0116 0z"
+  //       />
+  //     </svg>
+  //   ),
+  // },
 ];
 
 const AdminSidebar = () => {

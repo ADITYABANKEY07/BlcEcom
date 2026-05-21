@@ -10,6 +10,8 @@ const payRoute = require("./routes/payRoute");
 const userRoute = require("./routes/userRoute");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const analyticsRoute = require("./routes/analyticsRoute");
+
 
 const passport = require("passport");
 
@@ -53,6 +55,7 @@ app.use("/product", productRoute);
 app.use("/payment", payRoute);
 app.use("/user", userRoute);
 app.use("/auth", googleAuthRoute);
+app.use("/analytics",analyticsRoute);
 
 mongoose.connect(process.env.MONGO_URL).then(() => {
   console.log("Db connected successfully");

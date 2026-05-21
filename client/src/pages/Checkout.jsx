@@ -127,9 +127,14 @@ const Checkout = () => {
 
             // ✅ IF PAYMENT VERIFIED
             if (verifyResponse.data.success) {
-              const saveOrderApi = `${import.meta.env.VITE_API_URL}/admin/saveorder`;
+              const saveOrderApi = `${import.meta.env.VITE_API_URL}/user/saveorder`;
+
+              const user = JSON.parse(localStorage.getItem("user"));
 
               const saveResponse = await axios.post(saveOrderApi, {
+                // ✅ USER ID
+                userId: user?._id,
+
                 products: cartData.map((item) => ({
                   productId: item._id,
                   title: item.title,
@@ -139,18 +144,21 @@ const Checkout = () => {
                 })),
 
                 contactInfo,
+
                 shippingInfo,
 
                 amount: subtotal + shippingCost - discount,
 
                 paymentMethod: "Razorpay",
 
-                paymentStatus: "Paid", // ✅ SUCCESS
+                paymentStatus: "Paid",
 
                 orderStatus: "Processing",
 
                 razorpayOrderId: response.razorpay_order_id,
+
                 razorpayPaymentId: response.razorpay_payment_id,
+
                 razorpaySignature: response.razorpay_signature,
               });
 

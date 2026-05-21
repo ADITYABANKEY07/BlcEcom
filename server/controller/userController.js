@@ -1,6 +1,7 @@
 const userModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const orderModel = require("../models/orderModel");
 
 const signupUser = async (req, res) => {
   const { fullName, email, pass } = req.body;
@@ -30,25 +31,31 @@ const loginUser = async (req, res) => {
       expiresIn: "30 days",
     });
 
-    res
-      .status(200)
-      .send({
-        user: user,
-        token: token,
-        msg: "User login successfully 🎉",
-        status: 200,
-      });
+    res.status(200).send({
+      user: user,
+      token: token,
+      msg: "User login successfully 🎉",
+      status: 200,
+    });
   } catch (error) {
     res.status(500).send({ msg: "Server error", status: 500 });
   }
 };
 
-const userAuth = async(req, res) => {
+const userAuth = async (req, res) => {
   console.log(req.body);
-    res.status(200).send({ msg: "Okk", status: 200 });
-}
+  res.status(200).send({ msg: "Okk", status: 200 });
+};
+
+const GetMyOrders = async (req, res) => {
+  let { userId } = req.params;
+  let order = await orderModel.find({ userId });
+  res.send(order);
+};
 
 module.exports = {
   signupUser,
   loginUser,
+  userAuth,
+  GetMyOrders,
 };

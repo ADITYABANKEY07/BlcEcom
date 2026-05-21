@@ -96,7 +96,7 @@ const UserDropDown = () => {
               <div className="flex flex-col">
 
                 <Link
-                  to="/orders"
+                  to="/myorders"
                   className="px-4 py-3 text-sm hover:bg-gray-50 transition"
                 >
                   My Orders

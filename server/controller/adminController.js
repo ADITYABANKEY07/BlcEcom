@@ -142,16 +142,36 @@ const GetOrders = async (req, res) => {
   }
 };
 const OrderStatus = async (req, res) => {
-  try {
-    const orders = await OrderModel.find().sort({
-      createdAt: -1,
+ try {
+
+    const { id } = req.params;
+
+    const { orderStatus } = req.body;
+
+    const updatedOrder =
+      await OrderModel.findByIdAndUpdate(
+        id,
+        {
+          orderStatus,
+        },
+        {
+          new: true,
+        }
+      );
+
+    res.status(200).json({
+      success: true,
+      message: "Order Status Updated",
+      order: updatedOrder,
     });
 
-    res.json(orders);
   } catch (error) {
+
     res.status(500).json({
+      success: false,
       message: error.message,
     });
+
   }
 };
 
