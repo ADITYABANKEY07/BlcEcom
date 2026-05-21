@@ -11,6 +11,7 @@ const Header = () => {
   const [lastScroll, setLastScroll] = useState(0);
   const [openSearch, setOpenSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [mobileMenu, setMobileMenu] = useState(false);
   const navigate = useNavigate();
 
   const [menuData, setMenuData] = useState({});
@@ -82,7 +83,10 @@ const Header = () => {
         <div className="max-w-[1400px] mx-auto h-[80px] flex items-center justify-between px-4 md:px-10">
           {/* Mobile Menu */}
           <div className="md:hidden">
-            <Menu className="cursor-pointer" />
+            <Menu
+              onClick={() => setMobileMenu(!mobileMenu)}
+              className="cursor-pointer"
+            />
           </div>
 
           {/* Logo */}
@@ -183,7 +187,7 @@ const Header = () => {
               </div>
             )}
 
-            <UserDropDown/>
+            <UserDropDown />
 
             {/* Cart */}
             <Link
@@ -198,6 +202,165 @@ const Header = () => {
           </div>
         </div>
       </header>
+      {/* MOBILE SIDEBAR */}
+
+<div
+  className={`
+
+    md:hidden
+
+    fixed top-0 left-0
+
+    h-full w-[280px]
+
+    bg-white
+
+    z-[999]
+
+    shadow-2xl
+
+    transition-transform duration-300
+
+    ${
+      mobileMenu
+        ? "translate-x-0"
+
+        : "-translate-x-full"
+    }
+
+  `}
+>
+
+  {/* TOP */}
+
+  <div className="flex items-center justify-between p-5 border-b">
+
+    <h2 className="font-bold text-lg">
+      Menu
+    </h2>
+
+    <button
+      onClick={() =>
+        setMobileMenu(false)
+      }
+      className="text-2xl"
+    >
+      ×
+    </button>
+
+  </div>
+
+  {/* LINKS */}
+
+  <div className="flex flex-col p-5 gap-5 text-sm font-semibold uppercase overflow-y-auto h-full pb-20">
+
+    <Link
+      to="/home"
+
+      onClick={() =>
+        setMobileMenu(false)
+      }
+    >
+      Home
+    </Link>
+
+    {/* SMART DEVICE */}
+
+    <div>
+
+      <p className="mb-3 text-gray-400">
+        Smart Device
+      </p>
+
+      <div className="flex flex-col gap-4 pl-2">
+
+        {
+          Object.keys(menuData).map(
+            (brand) => (
+
+              <div key={brand}>
+
+                <p className="capitalize text-orange-500 font-bold mb-2">
+                  {brand}
+                </p>
+
+                <div className="flex flex-col gap-2 pl-3">
+
+                  {
+                    menuData[brand].map(
+                      (model, i) => (
+
+                        <Link
+
+                          key={i}
+
+                          to={`/collection/${brand}/${encodeURIComponent(model)}`}
+
+                          onClick={() =>
+                            setMobileMenu(false)
+                          }
+
+                          className="text-xs capitalize text-gray-700"
+                        >
+
+                          {model}
+
+                        </Link>
+                      )
+                    )
+                  }
+
+                </div>
+
+              </div>
+            )
+          )
+        }
+
+      </div>
+
+    </div>
+
+    <Link
+      to="/about"
+
+      onClick={() =>
+        setMobileMenu(false)
+      }
+    >
+      About
+    </Link>
+
+    <Link
+      to="/contact"
+
+      onClick={() =>
+        setMobileMenu(false)
+      }
+    >
+      Contact Us
+    </Link>
+
+  </div>
+
+</div>
+
+{/* BACKDROP */}
+
+{
+  mobileMenu && (
+
+    <div
+
+      onClick={() =>
+        setMobileMenu(false)
+      }
+
+      className="md:hidden fixed inset-0 bg-black/40 z-[998]"
+    />
+
+  )
+}
     </>
   );
 };
