@@ -10,7 +10,7 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_KEY,
 
       callbackURL:
-        "http://localhost:7001/auth/google/callback",
+        "https://blcecom.onrender.com/auth/google/callback",
     },
 
     async (accessToken, refreshToken, profile, done) => {
