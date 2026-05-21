@@ -45,8 +45,9 @@ const Checkout = () => {
   };
 
   const shippingCost =
-    delivery === "express" ? 9.99 : delivery === "overnight" ? 24.99 : 0;
-  const total = (subtotal + shippingCost - discount).toFixed(2);
+    delivery === "express" ? 199 : delivery === "overnight" ? 349 : 0;
+
+  const total = Math.round(subtotal + shippingCost - discount);
 
   const deliveryOptions = [
     {
@@ -101,7 +102,7 @@ const Checkout = () => {
 
       // 1. Create the order on your backend/Razorpay
       const response = await axios.post(api, {
-        amount: subtotal + shippingCost - discount,
+        amount: Number(total),
       });
 
       const order = response.data;
@@ -117,6 +118,8 @@ const Checkout = () => {
         handler: async function (response) {
           try {
             // ✅ VERIFY PAYMENT FIRST
+            console.log(options);
+            console.log(order);
             const verifyApi = `${import.meta.env.VITE_API_URL}/payment/verifypayment`;
 
             const verifyResponse = await axios.post(verifyApi, {
@@ -147,7 +150,7 @@ const Checkout = () => {
 
                 shippingInfo,
 
-                amount: subtotal + shippingCost - discount,
+                amount: Number(total),
 
                 paymentMethod: "Razorpay",
 
@@ -190,15 +193,41 @@ const Checkout = () => {
           }
         },
 
-        prefill: {
-          name: "Customer",
-          email: "customer@gmail.com",
-          contact: "9999999999",
-        },
+prefill: {
+
+  name:
+
+    contactInfo.firstName &&
+    contactInfo.lastName
+
+      ? `${contactInfo.firstName} ${contactInfo.lastName}`
+
+      : "Customer",
+
+  email:
+
+    contactInfo.email
+      ?.trim() ||
+
+    "customer@gmail.com",
+
+  contact:
+
+    contactInfo.phone
+      ?.replace(/\D/g, "")
+      ?.slice(-10) ||
+
+    "9876543210",
+
+},
         theme: {
           color: "#f97316",
         },
       };
+
+      console.log(order);
+
+      console.log(options);
 
       const razor = new window.Razorpay(options);
       razor.on("payment.failed", function (response) {
@@ -541,10 +570,7 @@ const Checkout = () => {
               </div>
             )}
             <div className="flex justify-between text-sm font-semibold tracking-widest uppercase text-black py-3 border-t border-gray-200 mt-2">
-              <span>Total</span>₹
-              {Number(subtotal + shippingCost - discount).toLocaleString(
-                "en-IN",
-              )}
+              <span>Total</span>₹{Number(total).toLocaleString("en-IN")}
             </div>
 
             <button

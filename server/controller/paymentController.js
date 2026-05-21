@@ -1,13 +1,23 @@
 const crypto = require("crypto");
+
 const razorpay = require("../razorpay.js");
 
 const createOrder = async (req, res) => {
   try {
     const { amount } = req.body;
 
+    // CHECK AMOUNT
+    if (!amount) {
+      return res.status(400).json({
+        message: "Amount is required",
+      });
+    }
+
     const options = {
-      amount: amount * 100, // paise
+      amount: Math.round(Number(amount) * 100),
+
       currency: "INR",
+
       receipt: "receipt_order_" + Date.now(),
     };
 
@@ -15,6 +25,8 @@ const createOrder = async (req, res) => {
 
     res.status(200).json(order);
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({
       message: error.message,
     });
@@ -26,8 +38,11 @@ const verifyPayment = async (req, res) => {
     const { razorpayOrderId, razorpayPaymentId, razorpaySignature } = req.body;
 
     const generated_signature = crypto
+
       .createHmac("sha256", process.env.RAZORPAY_SECRET)
+
       .update(razorpayOrderId + "|" + razorpayPaymentId)
+
       .digest("hex");
 
     if (generated_signature === razorpaySignature) {
@@ -40,6 +55,8 @@ const verifyPayment = async (req, res) => {
       });
     }
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({
       message: error.message,
     });

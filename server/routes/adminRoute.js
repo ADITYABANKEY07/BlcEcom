@@ -19,8 +19,6 @@ route.get("/editdisplay", adminController.EditDisplay);
 route.post("/update", adminController.UpdateProduct);
 // Update product
 route.get("/delete", adminController.DeleteProduct);
-// Save order 
-route.post("/saveorder", adminController.saveOrder);
 // Get orders
 route.get("/orders", adminController.GetOrders);
 // Update order status 
