@@ -91,7 +91,9 @@ const Header = () => {
 
           {/* Logo */}
           <div className="flex-1 text-center md:text-left">
-            <img src={logo} alt="logo" className="h-20 mx-auto md:mx-0" />
+            <Link to={"/"} >
+              <img src={logo} alt="logo" className="h-20 mx-auto md:mx-0" />
+            </Link>
           </div>
 
           {/* Nav */}
@@ -204,8 +206,8 @@ const Header = () => {
       </header>
       {/* MOBILE SIDEBAR */}
 
-<div
-  className={`
+      <div
+        className={`
 
     md:hidden
 
@@ -221,146 +223,74 @@ const Header = () => {
 
     transition-transform duration-300
 
-    ${
-      mobileMenu
-        ? "translate-x-0"
-
-        : "-translate-x-full"
-    }
+    ${mobileMenu ? "translate-x-0" : "-translate-x-full"}
 
   `}
->
+      >
+        {/* TOP */}
 
-  {/* TOP */}
+        <div className="flex items-center justify-between p-5 border-b">
+          <h2 className="font-bold text-lg">Menu</h2>
 
-  <div className="flex items-center justify-between p-5 border-b">
+          <button onClick={() => setMobileMenu(false)} className="text-2xl">
+            ×
+          </button>
+        </div>
 
-    <h2 className="font-bold text-lg">
-      Menu
-    </h2>
+        {/* LINKS */}
 
-    <button
-      onClick={() =>
-        setMobileMenu(false)
-      }
-      className="text-2xl"
-    >
-      ×
-    </button>
+        <div className="flex flex-col p-5 gap-5 text-sm font-semibold uppercase overflow-y-auto h-full pb-20">
+          <Link to="/home" onClick={() => setMobileMenu(false)}>
+            Home
+          </Link>
 
-  </div>
+          {/* SMART DEVICE */}
 
-  {/* LINKS */}
+          <div>
+            <p className="mb-3 text-gray-400">Smart Device</p>
 
-  <div className="flex flex-col p-5 gap-5 text-sm font-semibold uppercase overflow-y-auto h-full pb-20">
+            <div className="flex flex-col gap-4 pl-2">
+              {Object.keys(menuData).map((brand) => (
+                <div key={brand}>
+                  <p className="capitalize text-orange-500 font-bold mb-2">
+                    {brand}
+                  </p>
 
-    <Link
-      to="/home"
-
-      onClick={() =>
-        setMobileMenu(false)
-      }
-    >
-      Home
-    </Link>
-
-    {/* SMART DEVICE */}
-
-    <div>
-
-      <p className="mb-3 text-gray-400">
-        Smart Device
-      </p>
-
-      <div className="flex flex-col gap-4 pl-2">
-
-        {
-          Object.keys(menuData).map(
-            (brand) => (
-
-              <div key={brand}>
-
-                <p className="capitalize text-orange-500 font-bold mb-2">
-                  {brand}
-                </p>
-
-                <div className="flex flex-col gap-2 pl-3">
-
-                  {
-                    menuData[brand].map(
-                      (model, i) => (
-
-                        <Link
-
-                          key={i}
-
-                          to={`/collection/${brand}/${encodeURIComponent(model)}`}
-
-                          onClick={() =>
-                            setMobileMenu(false)
-                          }
-
-                          className="text-xs capitalize text-gray-700"
-                        >
-
-                          {model}
-
-                        </Link>
-                      )
-                    )
-                  }
-
+                  <div className="flex flex-col gap-2 pl-3">
+                    {menuData[brand].map((model, i) => (
+                      <Link
+                        key={i}
+                        to={`/collection/${brand}/${encodeURIComponent(model)}`}
+                        onClick={() => setMobileMenu(false)}
+                        className="text-xs capitalize text-gray-700"
+                      >
+                        {model}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
+              ))}
+            </div>
+          </div>
 
-              </div>
-            )
-          )
-        }
+          <Link to="/about" onClick={() => setMobileMenu(false)}>
+            About
+          </Link>
 
+          <Link to="/contact" onClick={() => setMobileMenu(false)}>
+            Contact Us
+          </Link>
+        </div>
       </div>
 
-    </div>
+      {/* BACKDROP */}
 
-    <Link
-      to="/about"
-
-      onClick={() =>
-        setMobileMenu(false)
-      }
-    >
-      About
-    </Link>
-
-    <Link
-      to="/contact"
-
-      onClick={() =>
-        setMobileMenu(false)
-      }
-    >
-      Contact Us
-    </Link>
-
-  </div>
-
-</div>
-
-{/* BACKDROP */}
-
-{
-  mobileMenu && (
-
-    <div
-
-      onClick={() =>
-        setMobileMenu(false)
-      }
-
-      className="md:hidden fixed inset-0 bg-black/40 z-[998]"
-    />
-
-  )
-}
+      {mobileMenu && (
+        <div
+          onClick={() => setMobileMenu(false)}
+          className="md:hidden fixed inset-0 bg-black/40 z-[998]"
+        />
+      )}
     </>
   );
 };
