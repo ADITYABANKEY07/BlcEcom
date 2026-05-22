@@ -159,7 +159,7 @@ const AdminSidebar = () => {
 
   return (
     <aside
-      className="w-64 flex-shrink-0 flex flex-col"
+      className="w-64 flex-shrink-0 flex flex-col min-h-screen h-full"
       style={{ background: "#0F172A", borderRight: "1px solid #1E293B" }}
     >
       {/* Logo */}

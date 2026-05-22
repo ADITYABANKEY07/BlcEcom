@@ -243,13 +243,13 @@ prefill: {
   };
 
   return (
-    <div className="min-h-screen bg-white font-mono px-6 py-10 text-black">
+    <div className="min-h-screen bg-white font-mono px-3 sm:px-4 md:px-6 py-6 sm:py-8 md:py-10 text-black">
       {/* Header */}
-      <div className="flex items-baseline gap-4 border-b border-gray-200 pb-4 mb-8 flex-wrap">
-        <h1 className="text-5xl font-black uppercase tracking-widest">
+      <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 border-b border-gray-200 pb-4 mb-6 sm:mb-8 flex-wrap">
+        <h1 className="text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-widest">
           Checkout
         </h1>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="flex items-center gap-2 sm:ml-auto">
           {/* Step: Cart (done) */}
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 bg-black flex items-center justify-center text-white text-[10px]">
@@ -282,15 +282,15 @@ prefill: {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 sm:gap-8">
         {/* LEFT COLUMN */}
         <div>
           {/* Contact */}
-          <div className="border border-gray-200 p-6 mb-6">
+          <div className="border border-gray-200 p-4 sm:p-6 mb-6">
             <p className="text-[10px] tracking-[2px] uppercase text-gray-400 mb-4 pb-3 border-b border-gray-100">
               Contact Information
             </p>
-            <div className="grid grid-cols-2 gap-3 mb-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
               <Field
                 label="First Name"
                 placeholder="John"
@@ -339,7 +339,7 @@ prefill: {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-3 mb-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
             <Field
               label="City"
               placeholder="Indore"
@@ -368,7 +368,7 @@ prefill: {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <Field
               label="Pin Code"
               placeholder="452001"
@@ -396,7 +396,7 @@ prefill: {
           </div>
 
           {/* Delivery */}
-          <div className="border border-gray-200 p-6 mb-6">
+          <div className="border border-gray-200 p-4 sm:p-6 mb-6">
             <p className="text-[10px] tracking-[2px] uppercase text-gray-400 mb-4 pb-3 border-b border-gray-100">
               Delivery Method
             </p>
@@ -486,7 +486,7 @@ prefill: {
 
         {/* RIGHT COLUMN — Order Summary */}
         <div>
-          <div className="border border-gray-200 bg-gray-50 p-6 sticky top-4">
+          <div className="border border-gray-200 bg-gray-50 p-4 sm:p-6 sticky top-4">
             <h2
               className="font-black uppercase tracking-widest text-xl mb-4 pb-3 border-b border-gray-200"
               style={{

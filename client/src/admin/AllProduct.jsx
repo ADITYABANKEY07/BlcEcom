@@ -40,7 +40,7 @@ const AllProduct = () => {
   };
 
   return (
-<div className="p-6 min-h-screen bg-[#0B132B] text-gray-200">
+<div className="p-3 sm:p-4 md:p-6 min-h-screen bg-[#0B132B] text-gray-200">
 
           <ToastContainer position="top-right" autoClose={2000} />
       <h1 className="text-2xl font-semibold mb-6">All Products</h1>

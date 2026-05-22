@@ -82,7 +82,7 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B132B] flex justify-center py-10 px-4 text-gray-200">
+    <div className="min-h-screen bg-[#0B132B] flex justify-center py-6 sm:py-8 md:py-10 px-3 sm:px-4 text-gray-200">
       <ToastContainer position="top-right" autoClose={2000} />
       <form
         onSubmit={handleSubmit}

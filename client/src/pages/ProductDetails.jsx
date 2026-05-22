@@ -51,14 +51,14 @@ const ProductDetails = () => {
     );
 
   return (
-    <div className="bg-gray-50 min-h-screen py-10 px-6">
-      <div className="max-w-[1300px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <div className="bg-gray-50 min-h-screen py-6 sm:py-8 md:py-10 px-3 sm:px-4 md:px-6">
+      <div className="max-w-[1300px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
 
         {/* 🔥 LEFT - IMAGE SECTION */}
-        <div className="flex gap-4">
+        <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4">
 
           {/* THUMBNAILS */}
-          <div className="flex flex-col gap-3">
+          <div className="flex sm:flex-col gap-2 sm:gap-3 overflow-x-auto sm:overflow-x-visible scrollbar-hide">
             {(product.images?.length > 0
               ? product.images
               : [product.defaultImage]
@@ -68,18 +68,18 @@ const ProductDetails = () => {
                 src={img}
                 alt="thumb"
                 onClick={() => setSelectedImage(img)}
-                className={`h-20 w-20 object-cover rounded-lg cursor-pointer border transition
+                className={`h-16 w-16 sm:h-20 sm:w-20 object-cover rounded-lg cursor-pointer border transition flex-shrink-0
                 ${selectedImage === img ? "border-black" : "border-gray-300"}`}
               />
             ))}
           </div>
 
           {/* MAIN IMAGE */}
-          <div className="flex-1 bg-white rounded-2xl p-8 flex items-center justify-center shadow-sm relative">
+          <div className="flex-1 bg-white rounded-2xl p-4 sm:p-6 md:p-8 flex items-center justify-center shadow-sm relative">
 
             {/* DISCOUNT BADGE */}
             {discountPercent && (
-              <span className="absolute top-4 left-4 bg-black text-white text-xs px-3 py-1 rounded">
+              <span className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-black text-white text-xs px-3 py-1 rounded">
                 {discountPercent}% OFF
               </span>
             )}
@@ -87,7 +87,7 @@ const ProductDetails = () => {
             <img
               src={selectedImage}
               alt={product.title}
-              className="max-h-[450px] object-contain"
+              className="max-h-[280px] sm:max-h-[350px] md:max-h-[450px] w-full object-contain"
             />
           </div>
         </div>
@@ -96,28 +96,28 @@ const ProductDetails = () => {
         <div className="flex flex-col justify-center">
 
           {/* BRAND */}
-          <p className="uppercase text-sm text-gray-500 tracking-wider">
+          <p className="uppercase text-xs sm:text-sm text-gray-500 tracking-wider">
             {product.brand}
           </p>
 
           {/* TITLE */}
-          <h1 className="text-3xl font-semibold mt-2">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold mt-2">
             {product.title}
           </h1>
 
           {/* MODEL */}
-          <p className="text-gray-500 mt-1">
+          <p className="text-gray-500 mt-1 text-sm sm:text-base">
             Compatible with {product.model}
           </p>
 
           {/* PRICE */}
-          <div className="flex items-center gap-3 mt-5">
-            <span className="text-2xl font-bold text-black">
+          <div className="flex items-center gap-3 mt-4 sm:mt-5">
+            <span className="text-xl sm:text-2xl font-bold text-black">
               ₹{(product.discountPrice || product.price).toLocaleString("en-IN")}
             </span>
 
             {product.discountPrice && (
-              <span className="line-through text-gray-400">
+              <span className="line-through text-gray-400 text-sm sm:text-base">
                 ₹{product.price}
               </span>
             )}
@@ -133,35 +133,35 @@ const ProductDetails = () => {
           </p>
 
           {/* DESCRIPTION */}
-          <p className="mt-6 text-gray-600 leading-relaxed">
+          <p className="mt-4 sm:mt-6 text-gray-600 leading-relaxed text-sm sm:text-base">
             {product.description}
           </p>
 
           {/* FEATURES */}
-          <ul className="mt-6 space-y-2 text-sm text-gray-700">
+          <ul className="mt-4 sm:mt-6 space-y-2 text-sm text-gray-700">
             <li>✔ Premium Quality Material</li>
             <li>✔ Perfect Fit & Protection</li>
             <li>✔ Fast Shipping Available</li>
           </ul>
 
           {/* BUTTONS */}
-          <div className="mt-8 flex gap-4">
+          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
             <button
               onClick={() => {
                 dispatch(addToCart(product));
                 navigate("/cart");
               }}
-              className="bg-black text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition"
+              className="bg-black text-white px-6 sm:px-8 py-3 rounded-lg hover:bg-gray-800 transition w-full sm:w-auto"
             >
               Add to Cart
             </button>
 
-<button
-  onClick={() => navigate(`/product/${product._id}`)}
-  className="mt-3 w-full bg-black text-white py-2 rounded-md"
->
-  View
-</button>
+            <button
+              onClick={() => navigate(`/product/${product._id}`)}
+              className="bg-black text-white py-3 px-6 sm:px-8 rounded-lg w-full sm:w-auto"
+            >
+              View
+            </button>
           </div>
         </div>
       </div>

@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/* Prevent horizontal overflow globally */
+html,
+body,
+#root {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 .swiper-pagination-bullet {
   border: 1px solid white;
 }

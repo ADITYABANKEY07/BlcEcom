@@ -14,10 +14,10 @@ const AddToCart = () => {
   );
 
   return (
-    <div className="min-h-screen bg-white font-mono px-6 py-10">
+    <div className="min-h-screen bg-white font-mono px-3 sm:px-4 md:px-6 py-6 sm:py-8 md:py-10">
       {/* Header */}
-      <div className="flex items-baseline gap-4 border-b border-gray-200 pb-4 mb-8">
-        <h1 className="text-5xl font-black uppercase tracking-widest text-black">
+      <div className="flex items-baseline gap-2 sm:gap-4 border-b border-gray-200 pb-4 mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-widest text-black">
           Your Cart
         </h1>
         <span className="text-xs tracking-widest text-gray-400 uppercase">
@@ -27,7 +27,7 @@ const AddToCart = () => {
 
       {cartData.length === 0 ? (
         /* Empty State */
-        <div className="flex flex-col items-center justify-center py-24 gap-4">
+        <div className="flex flex-col items-center justify-center py-16 sm:py-24 gap-4">
           <div className="w-14 h-14 bg-orange-500 flex items-center justify-center">
             <svg
               className="w-6 h-6 text-white"
@@ -43,7 +43,7 @@ const AddToCart = () => {
               />
             </svg>
           </div>
-          <p className="text-2xl font-black uppercase tracking-widest text-gray-300">
+          <p className="text-xl sm:text-2xl font-black uppercase tracking-widest text-gray-300">
             Cart is Empty
           </p>
           <p className="text-xs tracking-widest text-gray-300 uppercase">
@@ -53,8 +53,8 @@ const AddToCart = () => {
       ) : (
         <>
           {/* Table */}
-          <div className="overflow-x-auto border border-gray-200">
-            <table className="w-full min-w-[750px] border-collapse">
+          <div className="overflow-x-auto border border-gray-200 -mx-3 sm:mx-0 rounded-none sm:rounded-md">
+            <table className="w-full min-w-[650px] border-collapse">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
                   {[
@@ -70,7 +70,7 @@ const AddToCart = () => {
                   ].map((h, i) => (
                     <th
                       key={i}
-                      className="text-left text-[10px] tracking-[2px] uppercase text-gray-400 font-medium px-4 py-3 whitespace-nowrap"
+                      className="text-left text-[10px] tracking-[2px] uppercase text-gray-400 font-medium px-3 sm:px-4 py-3 whitespace-nowrap"
                     >
                       {h}
                     </th>
@@ -85,41 +85,41 @@ const AddToCart = () => {
                     className="border-b border-gray-100 hover:bg-gray-50 transition-colors duration-150"
                   >
                     {/* Image */}
-                    <td className="px-4 py-3">
+                    <td className="px-3 sm:px-4 py-3">
                       <img
                         src={item.defaultImage}
                         alt={item.title}
-                        className="w-14 h-14 object-cover border border-gray-200 bg-gray-100"
+                        className="w-12 h-12 sm:w-14 sm:h-14 object-cover border border-gray-200 bg-gray-100"
                       />
                     </td>
 
                     {/* Title */}
-                    <td className="px-4 py-3">
-                      <span className="text-sm font-medium text-black">
+                    <td className="px-3 sm:px-4 py-3">
+                      <span className="text-xs sm:text-sm font-medium text-black">
                         {item.title}
                       </span>
                     </td>
 
                     {/* Brand */}
-                    <td className="px-4 py-3">
+                    <td className="px-3 sm:px-4 py-3">
                       <span className="text-[10px] tracking-widest uppercase px-2 py-1 bg-gray-100 border border-gray-200 text-gray-500">
                         {item.brand}
                       </span>
                     </td>
 
                     {/* Model */}
-                    <td className="px-4 py-3 text-xs tracking-wider text-gray-400">
+                    <td className="px-3 sm:px-4 py-3 text-xs tracking-wider text-gray-400">
                       {item.model}
                     </td>
 
                     {/* Category */}
-                    <td className="px-4 py-3">
+                    <td className="px-3 sm:px-4 py-3">
                       <span className="text-[10px] tracking-widest uppercase px-2 py-1 bg-gray-100 border border-gray-200 text-gray-500">
                         {item.category}
                       </span>
                     </td>
 
-                    <td className="px-4 py-3 text-sm font-medium text-black">
+                    <td className="px-3 sm:px-4 py-3 text-sm font-medium text-black">
                       {Number(item.price).toLocaleString("en-IN", {
                         style: "currency",
                         currency: "INR",
@@ -127,7 +127,7 @@ const AddToCart = () => {
                     </td>
 
                     {/* Quantity Controls */}
-                    <td className="px-4 py-3">
+                    <td className="px-3 sm:px-4 py-3">
                       <div className="flex items-center border border-gray-200 w-fit">
                         <button
                           onClick={() => dispatch(qntDec({ id: item._id }))}
@@ -148,7 +148,7 @@ const AddToCart = () => {
                     </td>
 
                     {/* Total */}
-                    <td className="px-4 py-3 text-sm font-semibold text-black">
+                    <td className="px-3 sm:px-4 py-3 text-sm font-semibold text-black">
                       {Number(item.price * item.qty).toLocaleString("en-IN", {
                         style: "currency",
                         currency: "INR",
@@ -156,7 +156,7 @@ const AddToCart = () => {
                     </td>
 
                     {/* Remove */}
-                    <td className="px-4 py-3">
+                    <td className="px-3 sm:px-4 py-3">
                       <button
                         onClick={() => dispatch(removeCart({ id: item._id }))}
                         className="text-[10px] cursor-pointer tracking-widest uppercase px-3 py-1 border border-gray-200 text-gray-400 hover:border-orange-500 hover:text-orange-500 transition-colors duration-150"
@@ -171,8 +171,8 @@ const AddToCart = () => {
           </div>
 
           {/* Footer Summary */}
-          <div className="flex justify-end mt-8">
-            <div className="border border-gray-200 bg-gray-50 p-6 min-w-[280px]">
+          <div className="flex justify-end mt-6 sm:mt-8">
+            <div className="border border-gray-200 bg-gray-50 p-4 sm:p-6 w-full sm:w-auto sm:min-w-[280px]">
               <div className="flex justify-between text-[11px] tracking-widest uppercase text-gray-400 py-2">
                 <span>Subtotal</span>
                 <span>${subtotal.toLocaleString()}</span>
@@ -204,7 +204,7 @@ const AddToCart = () => {
                     navigate("/checkout");
                   }
                 }}
-                className="w-full mt-4 px-2 py-3 cursor-pointer bg-orange-500 hover:bg-orange-600 active:scale-95 text-white text-lg font-black uppercase tracking-widest transition-all duration-150"
+                className="w-full mt-4 px-2 py-3 cursor-pointer bg-orange-500 hover:bg-orange-600 active:scale-95 text-white text-sm sm:text-lg font-black uppercase tracking-widest transition-all duration-150"
               >
                 Proceed to Checkout
               </button>

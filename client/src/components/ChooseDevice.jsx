@@ -31,35 +31,36 @@ const handleDeviceClick = (device) => {
 };
 
   return (
-    <div className="relative bg-white py-16">
+    <div className="relative bg-white py-8 sm:py-12 md:py-16 overflow-hidden">
       {/* LEFT ARROW */}
       <button
         onClick={() => swiperRef.current?.slidePrev()}
-        className="absolute left-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-white/80 shadow hover:bg-white"
+        className="absolute left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/80 shadow hover:bg-white"
       >
-        <FaChevronLeft size={14} />
+        <FaChevronLeft size={12} className="sm:w-3.5 sm:h-3.5" />
       </button>
 
       {/* RIGHT ARROW */}
       <button
         onClick={() => swiperRef.current?.slideNext()}
-        className="absolute right-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-white/80 shadow hover:bg-white"
+        className="absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/80 shadow hover:bg-white"
       >
-        <FaChevronRight size={14} />
+        <FaChevronRight size={12} className="sm:w-3.5 sm:h-3.5" />
       </button>
 
       <Swiper
         modules={[Autoplay]}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         slidesPerView={2}
-        spaceBetween={30}
+        spaceBetween={15}
         loop={true}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         breakpoints={{
-          640: { slidesPerView: 3 },
-          1024: { slidesPerView: 4 },
+          480: { slidesPerView: 2, spaceBetween: 20 },
+          640: { slidesPerView: 3, spaceBetween: 25 },
+          1024: { slidesPerView: 4, spaceBetween: 30 },
         }}
-        className="px-16"
+        className="px-10 sm:px-14 md:px-16"
       >
         {devices.map((item) => (
           <SwiperSlide key={item.id}>
@@ -68,14 +69,14 @@ const handleDeviceClick = (device) => {
               onClick={() => handleDeviceClick(item)} 
               className="flex flex-col items-center text-center cursor-pointer group"
             >
-              <div className="h-[300px] flex items-center justify-center">
+              <div className="h-[180px] sm:h-[240px] md:h-[300px] flex items-center justify-center">
                 <img
                   src={item.img}
                   alt={item.model}
                   className="h-full object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
-              <p className="mt-4 font-medium text-gray-700 group-hover:text-blue-600">
+              <p className="mt-2 sm:mt-4 font-medium text-sm sm:text-base text-gray-700 group-hover:text-blue-600">
                 {item.model}
               </p>
             </div>

@@ -38,30 +38,30 @@ const Faq = () => {
   };
 
   return (
-    <div className="bg-white py-16 px-6 md:px-12">
+    <div className="bg-white py-8 sm:py-12 md:py-16 px-3 sm:px-6 md:px-12">
 
       {/* TOP TITLE */}
       <p className="text-center text-gray-500 text-sm tracking-widest mb-2">
         GENERAL FAQs
       </p>
 
-      <h2 className="text-3xl md:text-4xl font-semibold text-center text-black mb-4">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center text-black mb-4">
         Have a Question? Get in touch!
       </h2>
 
-      <p className="text-center text-gray-500 mb-12">
+      <p className="text-center text-gray-500 text-sm mb-8 sm:mb-12">
         Our customer support is available Monday to Saturday: 9 am to 6 pm
       </p>
 
       {/* GRID */}
-      <div className="grid md:grid-cols-2 gap-12 items-center">
+      <div className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
 
         {/* LEFT IMAGE */}
         <div>
           <img
             src={supportImg}
             alt="support"
-            className="rounded-2xl w-full h-[420px] object-cover"
+            className="rounded-2xl w-full h-[250px] sm:h-[350px] md:h-[420px] object-cover"
           />
         </div>
 

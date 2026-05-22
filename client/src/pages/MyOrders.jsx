@@ -94,7 +94,7 @@ const MyOrders = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white font-mono px-6 md:px-12 py-10 text-black">
+    <div className="min-h-screen bg-white font-mono px-3 sm:px-6 md:px-12 py-6 sm:py-8 md:py-10 text-black">
       {/* Header */}
       <div className="flex items-flex-end justify-between flex-wrap gap-4 border-b border-gray-200 pb-4 mb-8">
         <div>
@@ -105,7 +105,7 @@ const MyOrders = () => {
             className="leading-none text-black"
             style={{
               fontFamily: "'Bebas Neue',sans-serif",
-              fontSize: "40px",
+              fontSize: "clamp(24px, 5vw, 40px)",
               letterSpacing: "3px",
             }}
           >
@@ -226,7 +226,7 @@ const MyOrders = () => {
                 ].map(({ label, val, cls }, i) => (
                   <div
                     key={i}
-                    className="px-5 py-4 border-r border-gray-200 last:border-r-0"
+                    className="px-3 sm:px-5 py-3 sm:py-4 border-r border-gray-200 last:border-r-0"
                   >
                     <p className="text-[9px] tracking-[2px] uppercase text-gray-400 mb-1">
                       {label}

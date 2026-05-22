@@ -3,7 +3,7 @@ import banner from "../images/shopimg3.png"; // use your image
 
 const ShopByDrop = () => {
   return (
-    <div className="relative w-full h-[400px] md:h-[500px] overflow-hidden">
+    <div className="relative w-full h-[250px] sm:h-[350px] md:h-[400px] lg:h-[500px] overflow-hidden">
 
       {/* Background Image */}
       <img

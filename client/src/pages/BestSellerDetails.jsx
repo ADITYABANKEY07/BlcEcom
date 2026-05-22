@@ -36,13 +36,13 @@ const navigate = useNavigate();
   if (!product) return <p className="p-10">Loading...</p>;
 
   return (
-    <div className="p-10 grid md:grid-cols-2 gap-10">
+    <div className="p-4 sm:p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10">
       
       {/* 🔥 LEFT - IMAGE GALLERY */}
-      <div className="flex gap-4">
+      <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4">
 
         {/* THUMBNAILS */}
-        <div className="flex flex-col gap-3">
+        <div className="flex sm:flex-col gap-2 sm:gap-3 overflow-x-auto sm:overflow-x-visible scrollbar-hide">
           {(product.images?.length > 0
             ? product.images
             : [product.defaultImage]
@@ -52,43 +52,43 @@ const navigate = useNavigate();
               src={img}
               alt="thumb"
               onClick={() => setSelectedImage(img)}
-              className={`h-20 w-20 object-cover rounded-lg cursor-pointer border 
+              className={`h-16 w-16 sm:h-20 sm:w-20 object-cover rounded-lg cursor-pointer border flex-shrink-0
                 ${selectedImage === img ? "border-black" : "border-gray-300"}`}
             />
           ))}
         </div>
 
         {/* MAIN IMAGE */}
-        <div className="bg-gray-100 rounded-2xl p-6 flex justify-center flex-1">
+        <div className="bg-gray-100 rounded-2xl p-4 sm:p-6 flex justify-center flex-1">
           <img
             src={selectedImage}
             alt={product.title}
-            className="h-[400px] object-contain"
+            className="h-[250px] sm:h-[320px] md:h-[400px] object-contain"
           />
         </div>
       </div>
 
       {/* 🔥 RIGHT - DETAILS */}
       <div>
-        <h1 className="text-3xl font-semibold">{product.title}</h1>
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold">{product.title}</h1>
 
-        <p className="text-gray-500 mt-2">
+        <p className="text-gray-500 mt-2 text-sm sm:text-base">
           {product.brand} • {product.model}
         </p>
 
         <div className="flex items-center gap-3 mt-4">
-          <span className="text-2xl font-bold">
+          <span className="text-xl sm:text-2xl font-bold">
             ₹{product.discountPrice || product.price}
           </span>
 
           {product.discountPrice && (
-            <span className="line-through text-gray-400">
+            <span className="line-through text-gray-400 text-sm sm:text-base">
               ₹{product.price}
             </span>
           )}
         </div>
 
-        <p className="mt-6 text-gray-600">
+        <p className="mt-4 sm:mt-6 text-gray-600 text-sm sm:text-base">
           {product.description}
         </p>
 
@@ -96,18 +96,18 @@ const navigate = useNavigate();
           Stock: {product.stock}
         </p>
 
-        <div className="mt-6 flex gap-4">
+        <div className="mt-6 flex flex-col sm:flex-row gap-3 sm:gap-4">
 <button
   onClick={() => {
     dispatch(addToCart(product)); // ✅ add to redux
     navigate("/cart"); // ✅ go to cart page
   }}
-  className="bg-black text-white cursor-pointer px-6 py-3 rounded-lg"
+  className="bg-black text-white cursor-pointer px-6 py-3 rounded-lg w-full sm:w-auto"
 >
   Add to Cart
 </button>
 
-          <button className="border px-6 py-3 rounded-lg">
+          <button className="border px-6 py-3 rounded-lg w-full sm:w-auto">
             Buy Now
           </button>
         </div>

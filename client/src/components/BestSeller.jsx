@@ -56,22 +56,22 @@ const BestSeller = () => {
 
 
   return (
-    <div className="bg-gray-50 py-16 px-6 md:px-12 relative">
-      <h2 className="text-3xl md:text-4xl font-semibold mb-10">Bestsellers</h2>
+    <div className="bg-gray-50 py-8 sm:py-12 md:py-16 px-3 sm:px-6 md:px-12 relative">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-6 sm:mb-10">Bestsellers</h2>
 
       {/* Navigation Buttons */}
       <button
         onClick={() => swiperRef.current.slidePrev()}
-        className="absolute right-16 bottom-6 z-10 w-10 h-10 cursor-pointer rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
+        className="absolute right-14 sm:right-16 bottom-4 sm:bottom-6 z-10 w-8 h-8 sm:w-10 sm:h-10 cursor-pointer rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
       >
-        <FaChevronLeft />
+        <FaChevronLeft className="text-xs sm:text-sm" />
       </button>
 
       <button
         onClick={() => swiperRef.current.slideNext()}
-        className="absolute right-4 bottom-6 z-10 w-10 h-10 cursor-pointer rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
+        className="absolute right-2 sm:right-4 bottom-4 sm:bottom-6 z-10 w-8 h-8 sm:w-10 sm:h-10 cursor-pointer rounded-full bg-gray-200 flex items-center justify-center hover:bg-gray-300 transition-colors"
       >
-        <FaChevronRight />
+        <FaChevronRight className="text-xs sm:text-sm" />
       </button>
 
       <Swiper
@@ -93,7 +93,7 @@ const BestSeller = () => {
                 onClick={() => handleOpenProduct(item._id)}
                 className="group cursor-pointer flex flex-col h-full"
               >
-                <div className="relative bg-[#f5f5f5] rounded-3xl h-[260px] flex items-center justify-center overflow-hidden">
+                <div className="relative bg-[#f5f5f5] rounded-2xl sm:rounded-3xl h-[180px] sm:h-[220px] md:h-[260px] flex items-center justify-center overflow-hidden">
                   {/* ✅ Real image */}
                   <img
                     src={item.defaultImage}

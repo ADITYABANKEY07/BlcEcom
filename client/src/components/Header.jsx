@@ -80,7 +80,27 @@ const Header = () => {
           showHeader ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="max-w-[1400px] mx-auto h-[80px] flex items-center justify-between px-4 md:px-10">
+        <div
+          className="
+
+  max-w-[1400px]
+  mx-auto
+
+  h-[70px]
+  md:h-[80px]
+
+  flex
+  items-center
+  justify-between
+
+  px-3
+  sm:px-4
+  md:px-10
+
+  gap-3
+
+  "
+        >
           {/* Mobile Menu */}
           <div className="md:hidden">
             <Menu
@@ -91,7 +111,7 @@ const Header = () => {
 
           {/* Logo */}
           <div className="flex-1 text-center md:text-left">
-            <Link to={"/"} >
+            <Link to={"/"}>
               <img src={logo} alt="logo" className="h-20 mx-auto md:mx-0" />
             </Link>
           </div>
@@ -175,13 +195,13 @@ const Header = () => {
               <Search className="cursor-pointer hover:text-orange-500 transition" />
             </div>
             {openSearch && (
-              <div className="absolute top-10 right-0 bg-white shadow-lg p-3 rounded-lg">
+              <div className="absolute top-10 right-0 bg-white shadow-lg p-3 rounded-lg w-[calc(100vw-2rem)] sm:w-72 max-w-xs">
                 <input
                   type="text"
                   placeholder="Search..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="border px-3 py-2 rounded w-64 outline-none"
+                  className="border px-3 py-2 rounded w-full outline-none"
                 />
                 <button onClick={handleSearch}>
                   <Search className="cursor-pointer hover:text-orange-500 transition" />

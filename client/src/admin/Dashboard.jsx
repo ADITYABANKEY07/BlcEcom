@@ -134,7 +134,7 @@ export default function Dashboard() {
 
         {/* Topbar — dark to match */}
         <header
-          className="h-16 flex items-center justify-between px-8 sticky top-0 z-10"
+          className="h-14 sm:h-16 flex items-center justify-between px-4 sm:px-6 md:px-8 sticky top-0 z-10"
           style={{ background: "#0F172A", borderBottom: "1px solid #1E293B" }}
         >
           <div>
@@ -173,7 +173,7 @@ export default function Dashboard() {
         </header>
 
         {/* Page content */}
-        <main className="flex-1 p-8 overflow-auto" style={{ background: "#0F172A" }}>
+        <main className="flex-1 p-4 sm:p-6 md:p-8 overflow-auto" style={{ background: "#0F172A" }}>
 
           {/* Welcome */}
           <div className="mb-8">
@@ -186,7 +186,7 @@ export default function Dashboard() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
             <StatCard label="Revenue"   value="₹45,000" trend="↑ 12.5% vs last month" accent="#10B981" />
             <StatCard label="Orders"    value="320"     trend="↑ 8.2% this week"      accent="#6366F1" />
             <StatCard label="Customers" value="1,240"   trend="↑ 3.1% new users"      accent="#A78BFA" />

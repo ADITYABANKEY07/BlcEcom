@@ -133,7 +133,7 @@ const Success = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white font-mono text-black flex flex-col items-center px-6 py-12">
+    <div className="min-h-screen bg-white font-mono text-black flex flex-col items-center px-3 sm:px-4 md:px-6 py-8 sm:py-10 md:py-12">
       {/* Animated Check */}
       <div className="relative mb-8">
         <svg
@@ -176,7 +176,7 @@ const Success = () => {
         className="text-center text-black leading-none mb-2"
         style={{
           fontFamily: "'Bebas Neue', sans-serif",
-          fontSize: "48px",
+          fontSize: "clamp(28px, 6vw, 48px)",
           letterSpacing: "4px",
         }}
       >
@@ -190,7 +190,7 @@ const Success = () => {
       </p>
 
       {/* Order Card */}
-      <div className="w-full max-width-[540px] max-w-xl border border-gray-200 mb-6">
+      <div className="w-full max-w-xl border border-gray-200 mb-6">
         <div className="flex justify-between items-center px-5 py-4 border-b border-gray-200 bg-gray-50">
           <div>
             <p className="text-[10px] tracking-[2px] uppercase text-gray-400">
@@ -281,7 +281,7 @@ const Success = () => {
       </div>
 
       {/* INFO GRID */}
-      <div className="w-full max-w-xl grid grid-cols-2 gap-px bg-gray-200 border border-gray-200 mb-6">
+      <div className="w-full max-w-xl grid grid-cols-1 sm:grid-cols-2 gap-px bg-gray-200 border border-gray-200 mb-6">
         {[
           {
             label: "Ship To",

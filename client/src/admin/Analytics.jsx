@@ -232,7 +232,7 @@ analytics?.statusData?.reduce(
     <div className="min-h-screen" style={{ background: C.bg, fontFamily: "'Sora','DM Sans',sans-serif" }}>
 
       {/* ── TOPBAR ── */}
-      <div className="sticky top-0 z-20 px-8 h-16 flex items-center justify-between"
+      <div className="sticky top-0 z-20 px-3 sm:px-4 md:px-8 h-14 sm:h-16 flex items-center justify-between"
         style={{ background: C.bg + "EE", borderBottom: `1px solid ${C.border}`, backdropFilter: "blur(12px)" }}>
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-xl flex items-center justify-center text-sm font-black"
@@ -248,7 +248,7 @@ analytics?.statusData?.reduce(
 
         {/* Filters */}
         <div className="flex items-center gap-2">
-          <div className="flex gap-1 p-1 rounded-xl" style={{ background: C.surface, border: `1px solid ${C.border}` }}>
+          <div className="hidden sm:flex gap-1 p-1 rounded-xl" style={{ background: C.surface, border: `1px solid ${C.border}` }}>
             {FILTER_OPTIONS.map((f) => (
               <button key={f} onClick={() => setFilter(f)}
                 className="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200"
@@ -269,7 +269,7 @@ analytics?.statusData?.reduce(
       </div>
 
       {/* ── CONTENT ── */}
-      <div className="px-8 py-8 max-w-[1440px] mx-auto space-y-8">
+      <div className="px-3 sm:px-4 md:px-8 py-4 sm:py-6 md:py-8 max-w-[1440px] mx-auto space-y-6 sm:space-y-8">
 
         {/* Page title */}
         <div>
@@ -278,7 +278,7 @@ analytics?.statusData?.reduce(
         </div>
 
         {/* ── STAT CARDS ── */}
-        <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4">
           <StatCard loading={loading} icon={TrendingUp}    label="Total Revenue"    value={`₹${Number(stats.rev).toLocaleString("en-IN")}`}                 growth={stats.revG}  accent={C.indigo}  />
           <StatCard loading={loading} icon={ShoppingBag}   label="Total Orders"     value={stats.orders} growth={stats.ordG}  accent={C.cyan}    />
           <StatCard loading={loading} icon={Users}         label="Total Customers"  value={stats.cust}   growth={stats.custG} accent={C.violet}  />

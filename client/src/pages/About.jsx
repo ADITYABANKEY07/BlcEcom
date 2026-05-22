@@ -49,11 +49,11 @@ const About = () => {
     <div className="min-h-screen bg-white font-sans text-gray-900">
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gray-50 px-10 py-16 border-b border-gray-100">
+      <section className="relative overflow-hidden bg-gray-50 px-4 sm:px-6 md:px-10 py-10 sm:py-14 md:py-16 border-b border-gray-100">
         <div className="absolute -right-10 -top-10 h-56 w-56 rounded-full bg-gray-100 opacity-60" />
         <div className="absolute bottom-[-60px] right-16 h-36 w-36 rounded-full bg-gray-100 opacity-40" />
         <p className="mb-4 text-xs font-medium uppercase tracking-[3px] text-gray-400">Our story</p>
-        <h1 className="max-w-xl text-4xl font-bold leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+        <h1 className="max-w-xl text-2xl sm:text-3xl md:text-4xl font-bold leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
           Protecting devices,{" "}
           <span className="text-orange-600">one case</span> at a time.
         </h1>
@@ -66,17 +66,17 @@ const About = () => {
       {/* Stats */}
       <div className="grid grid-cols-3 border-b border-gray-100">
         {stats.map((s) => (
-          <div key={s.label} className="border-r border-gray-100 px-8 py-7 last:border-r-0">
-            <p className="text-3xl font-bold" style={{ fontFamily: "'Playfair Display', serif" }}>{s.num}</p>
-            <p className="mt-1 text-xs uppercase tracking-widest text-gray-400">{s.label}</p>
+          <div key={s.label} className="border-r border-gray-100 px-3 sm:px-6 md:px-8 py-5 sm:py-7 last:border-r-0">
+            <p className="text-xl sm:text-2xl md:text-3xl font-bold" style={{ fontFamily: "'Playfair Display', serif" }}>{s.num}</p>
+            <p className="mt-1 text-[10px] sm:text-xs uppercase tracking-widest text-gray-400">{s.label}</p>
           </div>
         ))}
       </div>
 
       {/* Who we are */}
-      <section className="border-b border-gray-100 px-10 py-12">
+      <section className="border-b border-gray-100 px-4 sm:px-6 md:px-10 py-8 sm:py-10 md:py-12">
         <p className="mb-6 text-xs font-medium uppercase tracking-[3px] text-gray-400">Who we are</p>
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:gap-10 lg:grid-cols-2">
           <div className="space-y-4 text-sm font-light leading-relaxed text-gray-500">
             <p>
               We believe your device deserves protection that's engineered, not just assembled. Every product goes
@@ -87,7 +87,7 @@ const About = () => {
               hundreds of models — our commitment to quality has never wavered.
             </p>
           </div>
-          <div className="border-l-4 border-orange-500 bg-gray-50 px-6 py-5 rounded-r-xl">
+          <div className="border-l-4 border-orange-500 bg-gray-50 px-4 sm:px-6 py-4 sm:py-5 rounded-r-xl">
             <p className="text-sm leading-relaxed text-gray-700">
               "Great protection should never compromise on design. We built this brand on the belief that you
               shouldn't have to choose between the two."
@@ -98,11 +98,11 @@ const About = () => {
       </section>
 
       {/* Values */}
-      <section className="border-b border-gray-100 px-10 py-12">
+      <section className="border-b border-gray-100 px-4 sm:px-6 md:px-10 py-8 sm:py-10 md:py-12">
         <p className="mb-6 text-xs font-medium uppercase tracking-[3px] text-gray-400">What we stand for</p>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {values.map((v) => (
-            <div key={v.title} className="rounded-xl border border-gray-100 bg-gray-50 p-5">
+            <div key={v.title} className="rounded-xl border border-gray-100 bg-gray-50 p-4 sm:p-5">
               <div className={`mb-3 h-8 w-8 rounded-lg ${v.color} flex items-center justify-center`}>
                 <div className={`h-3 w-3 rounded-full ${v.dot}`} />
               </div>
@@ -114,12 +114,12 @@ const About = () => {
       </section>
 
       {/* Timeline */}
-      <section className="border-b border-gray-100 px-10 py-12">
+      <section className="border-b border-gray-100 px-4 sm:px-6 md:px-10 py-8 sm:py-10 md:py-12">
         <p className="mb-6 text-xs font-medium uppercase tracking-[3px] text-gray-400">Our journey</p>
         <div className="flex flex-col">
           {timeline.map((t, i) => (
-            <div key={t.year} className="grid grid-cols-[80px_1px_1fr] gap-x-4">
-              <p className="pt-0.5 text-right text-sm font-bold text-orange-600"
+            <div key={t.year} className="grid grid-cols-[50px_1px_1fr] sm:grid-cols-[80px_1px_1fr] gap-x-3 sm:gap-x-4">
+              <p className="pt-0.5 text-right text-xs sm:text-sm font-bold text-orange-600"
                 style={{ fontFamily: "'Playfair Display', serif" }}>{t.year}</p>
               <div className="relative bg-gray-200">
                 <div className="absolute -left-[3px] top-1.5 h-2 w-2 rounded-full bg-orange-500" />
@@ -134,24 +134,24 @@ const About = () => {
       </section>
 
       {/* Team */}
-      <section className="border-b border-gray-100 px-10 py-12">
+      <section className="border-b border-gray-100 px-4 sm:px-6 md:px-10 py-8 sm:py-10 md:py-12">
         <p className="mb-6 text-xs font-medium uppercase tracking-[3px] text-gray-400">The team</p>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 sm:grid-cols-4">
           {team.map((m) => (
-            <div key={m.name} className="rounded-xl border border-gray-100 bg-gray-50 p-5 text-center">
-              <div className={`mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full text-sm font-medium ${m.color}`}>
+            <div key={m.name} className="rounded-xl border border-gray-100 bg-gray-50 p-3 sm:p-5 text-center">
+              <div className={`mx-auto mb-2 sm:mb-3 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full text-xs sm:text-sm font-medium ${m.color}`}>
                 {m.initials}
               </div>
-              <p className="text-sm font-medium text-gray-900">{m.name}</p>
-              <p className="mt-1 text-xs text-gray-400">{m.role}</p>
+              <p className="text-xs sm:text-sm font-medium text-gray-900">{m.name}</p>
+              <p className="mt-1 text-[10px] sm:text-xs text-gray-400">{m.role}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-gray-50 px-10 py-14 text-center">
-        <h2 className="text-2xl font-bold text-gray-900" style={{ fontFamily: "'Playfair Display', serif" }}>
+      <section className="bg-gray-50 px-4 sm:px-6 md:px-10 py-10 sm:py-14 text-center">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900" style={{ fontFamily: "'Playfair Display', serif" }}>
           Ready to protect your device?
         </h2>
         <p className="mt-2 text-sm text-gray-500">Browse our full collection — cases, screen guards, and more.</p>

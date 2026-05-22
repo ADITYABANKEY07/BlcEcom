@@ -105,7 +105,7 @@ const filtered = useMemo(() => {
 
   {/* Topbar */}
   <header
-    className="h-16 flex items-center justify-between px-8 sticky top-0 z-10"
+    className="h-14 sm:h-16 flex items-center justify-between px-4 sm:px-6 md:px-8 sticky top-0 z-10"
     style={{
       background: "#0F172A",
       borderBottom: "1px solid #1E293B",
@@ -128,7 +128,7 @@ const filtered = useMemo(() => {
     </div>
   </header>
 
-  <main className="flex-1 p-8">
+  <main className="flex-1 p-3 sm:p-4 md:p-8">
 
     {/* Table card */}
     <div

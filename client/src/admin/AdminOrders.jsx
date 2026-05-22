@@ -37,7 +37,7 @@ const AdminOrders = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-3 sm:p-4 md:p-6">
 
       {/* HEADER */}
       <div className="flex items-center justify-between mb-6">

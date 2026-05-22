@@ -4,7 +4,7 @@ import logo from "../images/blcblack1.png";
 const Footer = () => {
   return (
     <footer className="bg-black text-gray-400 pt-10 pb-6">
-      <div className="max-w-[1400px] mx-auto px-4 md:px-10">
+      <div className="max-w-[1400px] mx-auto px-3 sm:px-4 md:px-10">
 
         {/* Top Section */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-10">
@@ -82,9 +82,9 @@ const Footer = () => {
         <div className="border-t border-gray-700 pt-4 flex flex-col md:flex-row md:justify-between md:items-center gap-3">
           
           {/* Left */}
-          <div className="flex items-center gap-3">
-            <img src={logo} alt="logo" className="h-20  object-contain" />
-            <p className="text-sm whitespace-nowrap -mt-5">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <img src={logo} alt="logo" className="h-16 sm:h-20 object-contain" />
+            <p className="text-xs sm:text-sm text-center sm:text-left">
               © 2026 BaseLayerCase. All Rights Reserved.
             </p>
           </div>
