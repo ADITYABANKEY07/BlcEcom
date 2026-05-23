@@ -21,10 +21,7 @@ const LoginSuccess = () => {
       localStorage.setItem("token", token);
 
       // SAVE USER
-      localStorage.setItem(
-        "user",
-        decodeURIComponent(user)
-      );
+      localStorage.setItem("user", user);
 
       // ✅ CHECK REDIRECT (priority: query param > localStorage > home)
       const queryRedirect = searchParams.get("redirect");

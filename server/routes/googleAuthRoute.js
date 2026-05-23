@@ -4,28 +4,20 @@ const { loginSuccess, logout } = require("../controller/googleAuthController");
 
 const router = express.Router();
 
-// ✅ GOOGLE LOGIN (No changes needed here)
+// ✅ GOOGLE LOGIN
 router.get(
-
   "/google",
-
   (req, res, next) => {
-
-    // SAVE REDIRECT
-    req.session.redirectTo =
-      req.query.redirect || "/";
-
-    next();
-
-  },
-
-  passport.authenticate(
-    "google",
-    {
-      scope: ["profile", "email"],
-    }
-  )
-
+    const redirectTo = req.query.redirect || "/";
+    req.session.redirectTo = redirectTo;
+    req.session.save((err) => {
+      if (err) return next(err);
+      passport.authenticate("google", {
+        scope: ["profile", "email"],
+        state: redirectTo,
+      })(req, res, next);
+    });
+  }
 );
 
 // ✅ CALLBACK (Modified)
@@ -35,6 +27,10 @@ router.get(
     const frontendUrl = process.env.NODE_ENV === "production"
       ? "https://blc-ecom.vercel.app"
       : "http://localhost:5173";
+
+    if (req.query.state) {
+      req.session.redirectTo = req.query.state;
+    }
 
     passport.authenticate("google", {
       failureRedirect: `${frontendUrl}/login`,

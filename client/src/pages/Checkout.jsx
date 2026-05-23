@@ -18,10 +18,10 @@ const Checkout = () => {
   // BUY NOW DATA
   const buyNowData = JSON.parse(localStorage.getItem("buyNowProduct")) || [];
 
-  // ✅ SMART MODE DETECTION: if checkoutMode wasn't set, auto-detect from available data
-  const resolvedMode = rawCheckoutMode
-    || (buyNowData.length > 0 ? "buyNow" : null)
-    || (reduxCart.length > 0 ? "cart" : null);
+  // ✅ SMART MODE DETECTION: resolve mode based on availability of data to prevent stale modes
+  const resolvedMode = (rawCheckoutMode === "buyNow" && buyNowData.length > 0)
+    ? "buyNow"
+    : (reduxCart.length > 0 ? "cart" : null);
 
   // FINAL DATA
   const cartData = resolvedMode === "buyNow" ? buyNowData : reduxCart;

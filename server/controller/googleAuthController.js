@@ -16,17 +16,19 @@ const loginSuccess = (req, res) => {
     });
 
     // --- Dynamic Frontend URL from env ---
-    const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+    const frontendUrl = process.env.FRONTEND_URL || 
+      (process.env.NODE_ENV === "production" ? "https://blc-ecom.vercel.app" : "http://localhost:5173");
 
 // GET REDIRECT PAGE
 const redirectTo =
-
+  req.query.state ||
   req.session.redirectTo ||
-
   "/";
 
 // CLEAR SESSION
-delete req.session.redirectTo;
+if (req.session) {
+  delete req.session.redirectTo;
+}
 
 // REDIRECT
 res.redirect(
