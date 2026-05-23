@@ -192,6 +192,8 @@ const AddToCart = () => {
               </div>
               <button
                 onClick={() => {
+                  localStorage.removeItem("buyNowProduct");
+                  localStorage.setItem("checkoutMode", "cart");
                   const token = localStorage.getItem("token");
 
                   if (!token) {
@@ -199,7 +201,7 @@ const AddToCart = () => {
                     localStorage.setItem("redirectAfterLogin", "/checkout");
 
                     // ✅ GO LOGIN
-                    navigate("/login");
+                    navigate("/login", { state: { from: "/checkout" } });
                   } else {
                     navigate("/checkout");
                   }

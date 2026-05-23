@@ -149,7 +149,13 @@ const ProductDetails = () => {
             <button
               onClick={() => {
                 dispatch(addToCart(product));
-                navigate("/cart");
+                const user = JSON.parse(localStorage.getItem("user"));
+                if (!user) {
+                  localStorage.setItem("redirectAfterLogin", "/cart");
+                  navigate("/login", { state: { from: "/cart" } });
+                } else {
+                  navigate("/cart");
+                }
               }}
               className="bg-black text-white px-6 sm:px-8 py-3 rounded-lg hover:bg-gray-800 transition w-full sm:w-auto"
             >
@@ -157,10 +163,30 @@ const ProductDetails = () => {
             </button>
 
             <button
-              onClick={() => navigate(`/product/${product._id}`)}
-              className="bg-black text-white py-3 px-6 sm:px-8 rounded-lg w-full sm:w-auto"
+              onClick={() => {
+                const buyNowProduct = [
+                  {
+                    ...product,
+                    qty: 1,
+                  },
+                ];
+                localStorage.setItem("buyNowProduct", JSON.stringify(buyNowProduct));
+                localStorage.setItem("checkoutMode", "buyNow");
+                const user = JSON.parse(localStorage.getItem("user"));
+                if (!user) {
+                  localStorage.setItem("redirectAfterLogin", "/checkout");
+                  navigate("/login", {
+                    state: {
+                      from: "/checkout",
+                    },
+                  });
+                } else {
+                  navigate("/checkout");
+                }
+              }}
+              className="border border-black text-black px-6 sm:px-8 py-3 rounded-lg hover:bg-gray-100 transition w-full sm:w-auto cursor-pointer font-medium text-center"
             >
-              View
+              Buy Now
             </button>
           </div>
         </div>

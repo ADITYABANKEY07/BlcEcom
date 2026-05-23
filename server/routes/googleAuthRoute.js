@@ -6,19 +6,40 @@ const router = express.Router();
 
 // ✅ GOOGLE LOGIN (No changes needed here)
 router.get(
+
   "/google",
-  passport.authenticate("google", {
-    scope: ["profile", "email"],
-  })
+
+  (req, res, next) => {
+
+    // SAVE REDIRECT
+    req.session.redirectTo =
+      req.query.redirect || "/";
+
+    next();
+
+  },
+
+  passport.authenticate(
+    "google",
+    {
+      scope: ["profile", "email"],
+    }
+  )
+
 );
 
 // ✅ CALLBACK (Modified)
 router.get(
   "/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "http://localhost:5173/login",
-    // We removed successRedirect so we can handle it in the next function
-  }),
+  (req, res, next) => {
+    const frontendUrl = process.env.NODE_ENV === "production"
+      ? "https://blc-ecom.vercel.app"
+      : "http://localhost:5173";
+
+    passport.authenticate("google", {
+      failureRedirect: `${frontendUrl}/login`,
+    })(req, res, next);
+  },
   loginSuccess // <--- This function will now handle the token generation and final redirect
 );
 

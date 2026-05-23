@@ -33,6 +33,11 @@ const UserDropDown = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
 
+    // ✅ CLEAR CHECKOUT DATA (prevent stale data)
+    localStorage.removeItem("buyNowProduct");
+    localStorage.removeItem("checkoutMode");
+    localStorage.removeItem("redirectAfterLogin");
+
     navigate("/login");
 
     window.location.reload();

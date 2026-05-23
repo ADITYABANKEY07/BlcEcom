@@ -26,15 +26,14 @@ const LoginSuccess = () => {
         decodeURIComponent(user)
       );
 
-      // ✅ CHECK REDIRECT
-      const redirect =
-        localStorage.getItem("redirectAfterLogin") ||
-        "/";
+      // ✅ CHECK REDIRECT (priority: query param > localStorage > home)
+      const queryRedirect = searchParams.get("redirect");
+      const savedRedirect = localStorage.getItem("redirectAfterLogin");
 
-      // REMOVE STORAGE
-      localStorage.removeItem(
-        "redirectAfterLogin"
-      );
+      // ✅ CLEAR SAVED REDIRECT (prevent stale data)
+      localStorage.removeItem("redirectAfterLogin");
+
+      const redirect = queryRedirect || savedRedirect || "/";
 
       // REDIRECT
       navigate(redirect);

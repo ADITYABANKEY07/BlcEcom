@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { clearCart } from "../cartSlice";
@@ -6,10 +6,59 @@ import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const navigate = useNavigate();
-  const cartData = useSelector((state) => state.mycart.cart);
+
   const dispatch = useDispatch();
+
+  // CHECKOUT MODE (with smart fallback)
+  const rawCheckoutMode = localStorage.getItem("checkoutMode");
+
+  // REDUX CART
+  const reduxCart = useSelector((state) => state.mycart.cart);
+
+  // BUY NOW DATA
+  const buyNowData = JSON.parse(localStorage.getItem("buyNowProduct")) || [];
+
+  // ✅ SMART MODE DETECTION: if checkoutMode wasn't set, auto-detect from available data
+  const resolvedMode = rawCheckoutMode
+    || (buyNowData.length > 0 ? "buyNow" : null)
+    || (reduxCart.length > 0 ? "cart" : null);
+
+  // FINAL DATA
+  const cartData = resolvedMode === "buyNow" ? buyNowData : reduxCart;
+
+useEffect(() => {
+
+  // BUY NOW FLOW
+  if (
+    resolvedMode === "buyNow" &&
+    buyNowData.length > 0
+  ) {
+
+    return;
+  }
+
+  // CART FLOW
+  if (
+    resolvedMode === "cart" &&
+    reduxCart.length > 0
+  ) {
+
+    return;
+  }
+
+  // ✅ ALSO ALLOW: if we have ANY data, don't redirect
+  if (buyNowData.length > 0 || reduxCart.length > 0) {
+    return;
+  }
+
+  // TRULY EMPTY — redirect home
+  navigate("/");
+
+}, []);
+  // SUBTOTAL
   const subtotal = cartData.reduce(
-    (acc, item) => acc + item.price * item.qty,
+    (acc, item) => acc + (item.discountPrice || item.price) * (item.qty || 1),
+
     0,
   );
   const [delivery, setDelivery] = useState("standard");
@@ -168,13 +217,31 @@ const Checkout = () => {
               if (saveResponse.status === 200 || saveResponse.status === 201) {
                 alert("Payment Successful & Order Saved!");
 
-                // ✅ CLEAR REDUX CART
-                dispatch(clearCart());
+                // CHECK ACTIVE FLOW
+// BUY NOW FLOW
+if (
+  resolvedMode === "buyNow"
+) {
 
-                // ✅ CLEAR LOCALSTORAGE
-                localStorage.removeItem("cart");
+  localStorage.removeItem(
+    "buyNowProduct"
+  );
 
-                // ✅ GO TO SUCCESS PAGE
+}
+
+// CART FLOW
+else {
+
+  dispatch(clearCart());
+
+}
+
+// CLEAR MODE
+localStorage.removeItem(
+  "checkoutMode"
+);
+
+                // SUCCESS PAGE
                 navigate("/success", {
                   state: {
                     order: saveResponse.data.order,
@@ -193,33 +260,17 @@ const Checkout = () => {
           }
         },
 
-prefill: {
+        prefill: {
+          name:
+            contactInfo.firstName && contactInfo.lastName
+              ? `${contactInfo.firstName} ${contactInfo.lastName}`
+              : "Customer",
 
-  name:
+          email: contactInfo.email?.trim() || "customer@gmail.com",
 
-    contactInfo.firstName &&
-    contactInfo.lastName
-
-      ? `${contactInfo.firstName} ${contactInfo.lastName}`
-
-      : "Customer",
-
-  email:
-
-    contactInfo.email
-      ?.trim() ||
-
-    "customer@gmail.com",
-
-  contact:
-
-    contactInfo.phone
-      ?.replace(/\D/g, "")
-      ?.slice(-10) ||
-
-    "9876543210",
-
-},
+          contact:
+            contactInfo.phone?.replace(/\D/g, "")?.slice(-10) || "9876543210",
+        },
         theme: {
           color: "#f97316",
         },
@@ -504,7 +555,13 @@ prefill: {
                 className="flex items-center gap-3 py-3 border-b border-gray-100"
               >
                 <img
-                  src={item.defaultImage}
+                  src={
+  item.defaultImage ||
+
+  item.image ||
+
+  item.images?.[0]
+}
                   alt={item.title}
                   className="w-11 h-11 object-cover border border-gray-200 bg-gray-100 flex-shrink-0"
                 />

@@ -32,7 +32,12 @@ const loginUser = async (req, res) => {
     });
 
     res.status(200).send({
-      user: user,
+      user: {
+        _id: user._id,
+        name: user.fullName || user.name,
+        email: user.email,
+        image: user.image || null,
+      },
       token: token,
       msg: "User login successfully 🎉",
       status: 200,

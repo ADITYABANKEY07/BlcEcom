@@ -20,9 +20,22 @@ const loginSuccess = (req, res) => {
       ? "https://blc-ecom.vercel.app"
       : "http://localhost:5173";
 
-    res.redirect(
-      `${frontendUrl}/login-success?token=${token}&user=${encodeURIComponent(user)}`
-    );
+// GET REDIRECT PAGE
+const redirectTo =
+
+  req.session.redirectTo ||
+
+  "/";
+
+// CLEAR SESSION
+delete req.session.redirectTo;
+
+// REDIRECT
+res.redirect(
+
+  `${frontendUrl}/login-success?token=${token}&user=${encodeURIComponent(user)}&redirect=${encodeURIComponent(redirectTo)}`
+
+);
     // --------------------------------------------------------
 
   } else {

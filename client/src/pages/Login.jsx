@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import { useLocation } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
@@ -47,11 +49,32 @@ const Login = () => {
 
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      const redirect = localStorage.getItem("redirectAfterLogin") || "/";
+const buyNowProduct =
+  localStorage.getItem(
+    "buyNowProduct"
+  );
 
-      navigate(redirect);
+const hasBuyNow =
 
-      localStorage.removeItem("redirectAfterLogin");
+  buyNowProduct &&
+
+  JSON.parse(
+    buyNowProduct
+  ).length > 0;
+
+// ✅ READ SAVED REDIRECT
+const savedRedirect = localStorage.getItem("redirectAfterLogin");
+
+// ✅ CLEAR SAVED REDIRECT (prevent stale data)
+localStorage.removeItem("redirectAfterLogin");
+
+// REDIRECT (priority: state > savedRedirect > buyNow > home)
+const redirectTo =
+  location.state?.from ||
+  savedRedirect ||
+  (hasBuyNow ? "/checkout" : "/");
+
+navigate(redirectTo);
     } catch (err) {
       setError(err.response?.data?.msg || "Invalid email or password.");
     } finally {
@@ -83,9 +106,15 @@ const Login = () => {
     </svg>
   );
 const loginwithGoogle = () => {
-  // Use your VITE_API_URL instead of a hardcoded string
+  const savedRedirect = localStorage.getItem("redirectAfterLogin");
+  const redirectTo = location.state?.from || savedRedirect || "/";
+  // Save redirect for same-origin fallback
+  localStorage.setItem("redirectAfterLogin", redirectTo);
   const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:7001";
-  window.open(`${apiUrl}/auth/google`, "_self");
+  window.open(
+    `${apiUrl}/auth/google?redirect=${encodeURIComponent(redirectTo)}`,
+    "_self"
+  );
 };
 
 

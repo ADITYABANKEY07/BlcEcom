@@ -49,8 +49,12 @@ const BestSeller = () => {
   // ✅ Handle Add to Cart
   const handleAddToCart = (e, product) => {
     e.stopPropagation(); // Prevents navigating to the product page
-    console.log("Added to cart:", product);
     dispatch(addToCart(product));
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      localStorage.setItem("redirectAfterLogin", "/cart");
+      navigate("/login", { state: { from: "/cart" } });
+    }
   };
 
 
