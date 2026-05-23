@@ -15,10 +15,8 @@ const loginSuccess = (req, res) => {
       image: req.user.image,
     });
 
-    // --- FIX: Dynamic Production vs Development Redirect ---
-    const frontendUrl = process.env.NODE_ENV === "production"
-      ? "https://blc-ecom.vercel.app"
-      : "http://localhost:5173";
+    // --- Dynamic Frontend URL from env ---
+    const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
 
 // GET REDIRECT PAGE
 const redirectTo =

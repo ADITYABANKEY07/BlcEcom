@@ -49,30 +49,17 @@ const Login = () => {
 
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-const buyNowProduct =
-  localStorage.getItem(
-    "buyNowProduct"
-  );
-
-const hasBuyNow =
-
-  buyNowProduct &&
-
-  JSON.parse(
-    buyNowProduct
-  ).length > 0;
-
 // ✅ READ SAVED REDIRECT
 const savedRedirect = localStorage.getItem("redirectAfterLogin");
 
 // ✅ CLEAR SAVED REDIRECT (prevent stale data)
 localStorage.removeItem("redirectAfterLogin");
 
-// REDIRECT (priority: state > savedRedirect > buyNow > home)
+// REDIRECT (priority: state > savedRedirect > home)
 const redirectTo =
   location.state?.from ||
   savedRedirect ||
-  (hasBuyNow ? "/checkout" : "/");
+  "/";
 
 navigate(redirectTo);
     } catch (err) {

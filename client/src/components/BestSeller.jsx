@@ -54,6 +54,8 @@ const BestSeller = () => {
     if (!user) {
       localStorage.setItem("redirectAfterLogin", "/cart");
       navigate("/login", { state: { from: "/cart" } });
+    } else {
+      navigate("/cart");
     }
   };
 

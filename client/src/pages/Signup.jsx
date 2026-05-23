@@ -1,10 +1,22 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const loginwithGoogle = () => {
+    const savedRedirect = localStorage.getItem("redirectAfterLogin");
+    const redirectTo = location.state?.from || savedRedirect || "/";
+    localStorage.setItem("redirectAfterLogin", redirectTo);
+    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:7001";
+    window.open(
+      `${apiUrl}/auth/google?redirect=${encodeURIComponent(redirectTo)}`,
+      "_self"
+    );
+  };
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
@@ -161,6 +173,7 @@ const Signup = () => {
   ].map((s) => (
     <button
       key={s.label}
+      onClick={loginwithGoogle}
       className="h-10 border border-gray-200 bg-white text-[11px] tracking-wide text-gray-500 hover:border-gray-400 bg-white text-[11px] tracking-wide text-gray-500 hover:bg-gray-900 hover:text-white transition-colors flex items-center justify-center gap-2 cursor-pointer"
     >
       <span className="text-lg">{s.icon}</span>

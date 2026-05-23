@@ -28,6 +28,14 @@ const Checkout = () => {
 
 useEffect(() => {
 
+  // ✅ AUTH GUARD: redirect to login if not authenticated
+  const token = localStorage.getItem("token");
+  if (!token) {
+    localStorage.setItem("redirectAfterLogin", "/checkout");
+    navigate("/login", { state: { from: "/checkout" } });
+    return;
+  }
+
   // BUY NOW FLOW
   if (
     resolvedMode === "buyNow" &&
