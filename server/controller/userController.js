@@ -4,15 +4,77 @@ const jwt = require("jsonwebtoken");
 const orderModel = require("../models/orderModel");
 
 const signupUser = async (req, res) => {
-  const { fullName, email, pass } = req.body;
-  const salt = await bcrypt.genSalt(10);
-  const newPass = await bcrypt.hash(pass, salt);
-  const user = await userModel.create({
-    fullName: fullName,
-    email: email,
-    pass: newPass,
-  });
-  res.status(200).send({ msg: "User signup successfully 🎉", status: 200 });
+
+  try {
+
+    const {
+      fullName,
+      email,
+      pass
+    } = req.body;
+
+    // CHECK EXISTING USER
+    const existingUser =
+      await userModel.findOne({
+        email,
+      });
+
+    if (existingUser) {
+
+      return res.status(400).send({
+
+        msg:
+          "Email already exists",
+
+      });
+
+    }
+
+    // HASH PASSWORD
+    const salt =
+      await bcrypt.genSalt(10);
+
+    const newPass =
+      await bcrypt.hash(
+        pass,
+        salt
+      );
+
+    // CREATE USER
+    await userModel.create({
+
+      fullName,
+
+      email,
+
+      pass: newPass,
+
+    });
+
+    res.status(200).send({
+
+      msg:
+        "User signup successfully 🎉",
+
+      status: 200,
+
+    });
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).send({
+
+      msg:
+        error.message ||
+
+        "Server Error",
+
+    });
+
+  }
+
 };
 
 const loginUser = async (req, res) => {
