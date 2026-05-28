@@ -12,23 +12,46 @@ const BestSeller = () => {
   const swiperRef = useRef(null);
   const navigate = useNavigate();
 
-  const [products, setProducts] = useState([]);
+const [products, setProducts] = useState([]);
+
+const [loading, setLoading] =
+  useState(true);
   const [likedItems, setLikedItems] = useState([]);
 
   // ✅ Fetch BestSeller products from backend
-  useEffect(() => {
-    const fetchProducts = async () => {
+useEffect(() => {
+
+  const fetchProducts =
+    async () => {
+
       try {
-        let api = `${import.meta.env.VITE_API_URL}/product/bestseller?isBestSeller=true`;
-        let res = await axios.get(api);
+
+        setLoading(true);
+
+        let api =
+
+          `${import.meta.env.VITE_API_URL}/product/bestseller?isBestSeller=true`;
+
+        let res =
+          await axios.get(api);
+
         setProducts(res.data);
+
       } catch (err) {
+
         console.log(err);
+
+      } finally {
+
+        setLoading(false);
+
       }
+
     };
 
-    fetchProducts();
-  }, []);
+  fetchProducts();
+
+}, []);
 
   const toggleLike = (e, productId) => {
     e.stopPropagation();
@@ -90,7 +113,77 @@ const BestSeller = () => {
           1024: { slidesPerView: 4 },
         }}
       >
-        {products.map((item) => {
+{loading
+
+  ? Array(6)
+      .fill(0)
+      .map((_, index) => (
+
+        <SwiperSlide key={index}>
+
+          <div className="animate-pulse flex flex-col h-full">
+
+            {/* IMAGE */}
+            <div className="
+              bg-gray-200
+              rounded-2xl
+              sm:rounded-3xl
+              h-[180px]
+              sm:h-[220px]
+              md:h-[260px]
+            " />
+
+            <div className="mt-4 space-y-3">
+
+              {/* TITLE */}
+              <div className="
+                h-4
+                bg-gray-200
+                rounded
+                w-3/4
+              " />
+
+              {/* BRAND */}
+              <div className="
+                h-3
+                bg-gray-200
+                rounded
+                w-1/2
+              " />
+
+              {/* PRICE + BUTTON */}
+              <div className="
+                flex
+                justify-between
+                items-center
+                mt-4
+              ">
+
+                <div className="
+                  h-4
+                  bg-gray-200
+                  rounded
+                  w-20
+                " />
+
+                <div className="
+                  h-9
+                  bg-gray-200
+                  rounded-xl
+                  w-20
+                " />
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </SwiperSlide>
+
+      ))
+
+  : products.map((item) => {
           const isLiked = likedItems.includes(item._id);
 
           return (
